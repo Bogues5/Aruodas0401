@@ -53,4 +53,19 @@ public class Plot {
     public String email;
     public String cbdont_show_in_ads;
     public String dont_want_chat;
-    public String[] account_type = {
+
+public String[] datatitle = {
+        "Privatus asmuo",
+        "Tarpininkas",
+        "Vystytojas/statytojas",
+        "Kitas verslo subjektas",};
+
+     public String agree_to_rules;
+     public String submitFormButton;
+
+
+
+
+
+
+
