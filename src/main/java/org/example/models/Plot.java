@@ -54,4 +54,3 @@ public class Plot {
     public String cbdont_show_in_ads;
     public String dont_want_chat;
     public String[] account_type = {
-    }
