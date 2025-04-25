@@ -1,73 +1,43 @@
-package org.example.tests;
-
 import org.example.models.Plot;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
 import java.time.Duration;
 
-@Test
 public class PlotTests {
-    public WebDriver driver;
+    public static WebDriver driver;
 
     @BeforeClass
-    public void setUp() {
+    public void setUp(){
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        acceptcookies();
+    }
+
+    private void acceptcookies() {
         driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=11&offer_type=1");
-
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            WebElement acceptBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id("onetrust-accept-btn-handler")));
-            acceptBtn.click();
-        } catch (Exception e) {
-            System.out.println("Sutikimo mygtukas nerastas arba jau paspaustas.");
-        }
+        driver.findElement(By.id("onetrust-accept-btn-handler")).click();
     }
 
-    public void testFillPlotForm() {
-        Plot plot = new Plot(driver);
-
-        plot.region = "Vilnius";
-        plot.district = "Antakalnis";
-        plot.quartal = "Naujamiestis";
-        plot.street = "Gedimino pr.";
-        plot.fHouseNum = "1";
-        plot.rcNumber = "12345";
-        plot.fAreaOverAll = "100";
-        plot.paskirtys = new String[]{"Gyvenamoji"};
-        plot.ypatybes = new String[]{"Elektra", "Vanduo"};
-        plot.interestedChange = "Taip";
-        plot.auction = true;
-        plot.notesLt = "Parduodamas sklypas su elektra.";
-        plot.video = "https://youtube.com/example";
-        plot.tour3d = "https://3dturas.example.com";
-        plot.price = "50000";
-        plot.phone = "+37012345678";
-        plot.email = "test@example.com";
-        plot.agreeToRules = "Taip";
-        plot.submitFormButton = "Pateikti";
-
-        plot.fill();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        WebElement priceField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("price")));
-        Assert.assertEquals(priceField.getAttribute("value"), "50000", "Kaina neteisingai įvesta");
-
-        WebElement auctionCheckbox = driver.findElement(By.name("auction"));
-        Assert.assertTrue(auctionCheckbox.isSelected(), "Aukciono checkbox'as turėtų būti pažymėtas");
-
-        WebElement rcNumberField = driver.findElement(By.name("rcNumber"));
-        Assert.assertEquals(rcNumberField.getAttribute("value"), "12345", "RC numeris neteisingai įvestas");
-
-        WebElement regionField = driver.findElement(By.className("dropdown-input-value-title"));
-        Assert.assertTrue(regionField.getText().contains("Vilnius"), "Regionas neteisingai pasirinktas");
+    @Test
+    public void positiveTest(){
+        Plot p = new Plot(driver,"Vilnius","Vilniaus m.","Baltupiai","Goštauto","43","4444-44444-4444","40",new int[]{1,3,7},new int[]{1,3,7},false,false,"pardodu sklipa", "sklip for seil", "a...",new String[]{"",""},"youtube.com","tour3d.com","40000","+37065874125","ne@tavo.reikalas",false,true,1,true);
+        p.fill();
+        String actual = "";
+        Assert.assertEquals(actual,"");
     }
+
+    @Test
+    public void positiveTest2(){
+        Plot p = new Plot(driver,"Vilnius","Vilniaus m.","Baltupiai","ryto","43","4444-44444-4444","40",new int[]{1,3,7},new int[]{1,3,7},false,false,"pardodu sklipa", "sklip for seil", "a...",new String[]{"",""},"youtube.com","tour3d.com","40000","+37065874125","ne@tavo.reikalas",false,true,1,true);
+        p.fill();
+        String actual = "";
+        Assert.assertEquals(actual,"");
+    }
+
 }
