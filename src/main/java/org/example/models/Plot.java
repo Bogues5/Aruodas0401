@@ -1,11 +1,10 @@
 package org.example.models;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-// Pagal string ištrauktas elementas, kuris parodo kur yra laukelis
+
 public class Plot {
     public WebDriver driver;
     public String region;
@@ -29,9 +28,7 @@ public class Plot {
     public String email;
     public String cbDontShowInAds;
     public String dontWantChat;
-    // Taip pat su masyvu ištraukti elementai su atributu: data-title, kad pasirinkti varianta
     public String[] datatitle;
-    // su string ištrauktas elementas pagal name , kad pazymetu check box ir paspaustu migtuka
     public String agreeToRules;
     public String submitFormButton;
 

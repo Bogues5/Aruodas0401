@@ -1,12 +1,10 @@
-
 import org.example.models.Plot;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -18,18 +16,20 @@ public class PlotTests {
     @BeforeClass
     public static void setUp() {
 
-
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=11&offer_type=1");
+
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(7));
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[8]/div[2]/div/div[1]/div/div[2]/div/button[1]")));
+        WebElement acceptBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id("onetrust-accept-btn-handler")));
+
+        acceptBtn.click();
     }
 
     @Test
     public void testFillPlotForm() {
         Plot plot = new Plot();
-        plot.driver = driver;
+        plot.driver = PlotTests.driver;
         plot.fHouseNum = "123";
         plot.rcNumber = "1234-5678-9012";
         plot.paskirtys = new String[]{"Namų valda",""};
