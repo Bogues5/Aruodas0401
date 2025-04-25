@@ -1,20 +1,23 @@
 package org.example.models;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+import java.util.List;
 
 public class Plot {
-    public WebDriver driver;
+    private WebDriver driver;
     public String region;
     public String district;
     public String quartal;
     public String street;
     public String fHouseNum;
-    public String show_house_num;
     public String rcNumber;
-    public String showRcNumber;
     public String fAreaOverAll;
     public String[] paskirtys;
     public String[] ypatybes;
@@ -32,52 +35,130 @@ public class Plot {
     public String agreeToRules;
     public String submitFormButton;
 
+    // Konstruktorius, kuris priima WebDriver
+    public Plot(WebDriver driver) {
+        this.driver = driver;
+    }
+
     public Plot() {
+
     }
 
     public void fill() {
-        Select savivaldybe = new Select(driver.findElement(By.name("region")));
-        savivaldybe.selectByIndex(1);
+        fillRegion();
+        fillDistrict();
+        fillQuartal();
+        fillStreet();
+        fillAdditionalFields();
+    }
 
-        Select gyvenviete = new Select(driver.findElement(By.name("district")));
-        gyvenviete.selectByIndex(1);
+    private void fillRegion() {
+        WebElement regionDropdown = waitForElementClickable(By.className("dropdown-input-value-title"), 0);
+        regionDropdown.click();
+        WebElement searchInput = waitForElementVisible(By.className("dropdown-input-search-value"));
+        searchInput.sendKeys(this.region);
+        waitForShortDuration();
+        searchInput.sendKeys(Keys.ENTER);
+    }
 
-        Select mikrorajonas = new Select(driver.findElement(By.name("quartal")));
-        mikrorajonas.selectByIndex(1);
+    private void fillDistrict() {
+        WebElement districtDropdown = waitForElementClickable(By.className("dropdown-input-value-title"), 1);
+        districtDropdown.click();
+        WebElement searchInput = waitForElementVisible(By.className("dropdown-input-search-value"));
+        searchInput.sendKeys(this.district);
+        waitForShortDuration();
+        searchInput.sendKeys(Keys.ENTER);
+    }
 
-        Select gatve = new Select(driver.findElement(By.name("street")));
-        gatve.selectByIndex(1);
+    private void fillQuartal() {
+        WebElement quartalDropdown = waitForElementClickable(By.className("dropdown-input-value-title"), 2);
+        quartalDropdown.click();
+        List<WebElement> searchInputs = driver.findElements(By.className("dropdown-input-search-value"));
+        WebElement quartalInput = searchInputs.size() > 1 ? searchInputs.get(1) : searchInputs.get(0);
+        quartalInput.sendKeys(this.quartal);
+        waitForLongDuration();
+        quartalInput.sendKeys(Keys.ENTER);
+    }
 
-        driver.findElement(By.name("fHouseNum")).sendKeys(this.fHouseNum);
-        driver.findElement(By.name("rcNumber")).sendKeys(this.rcNumber);
-        driver.findElement(By.name("fAreaOverAll")).sendKeys("100");
+    private void fillStreet() {
+        WebElement streetDropdown = waitForElementClickable(By.className("dropdown-input-value-title"), 3);
+        streetDropdown.click();
+        WebElement streetInput = waitForElementVisible(By.xpath("//*[@id='streets_1']/li[1]/input"));
+        streetInput.sendKeys(this.street);
+        waitForShortDuration();
+        streetInput.sendKeys(Keys.ENTER);
+    }
 
-
-        driver.findElement(By.xpath("//label[@for='cb_FIntendance_property']")).click();
-
-        for (int i = 0; i < this.paskirtys.length; i++) {
-            WebElement vienaPaskirtis = driver.findElement(By.xpath("//input[@data-title='" + this.paskirtys[i] + "']/following-sibling::label"));
-            vienaPaskirtis.click();
+    private void fillAdditionalFields() {
+        sendKeysToElement(By.name("fHouseNum"), this.fHouseNum);
+        sendKeysToElement(By.name("rcNumber"), this.rcNumber);
+        sendKeysToElement(By.name("fAreaOverAll"), "100");
+        clickElement(By.xpath("//label[@for='cb_FIntendance_property']"));
+        for (String paskirtis : this.paskirtys) {
+            if (paskirtis != null && !paskirtis.isEmpty()) {
+                clickElement(By.xpath("//input[@data-title='" + paskirtis + "']/following-sibling::label"));
+            }
         }
-        for (int i = 0; i < this.ypatybes.length; i++) {
-            WebElement vienaYpatybe = driver.findElement(By.xpath("//input[@data-title='" + this.ypatybes[i] + "']/following-sibling::label"));
-            vienaYpatybe.click();
-
+        for (String ypatybe : this.ypatybes) {
+            if (ypatybe != null && !ypatybe.isEmpty()) {
+                clickElement(By.xpath("//input[@data-title='" + ypatybe + "']/following-sibling::label"));
+            }
         }
-        driver.findElement(By.xpath("/html/body/div[1]/div[2]/form/ul/li[22]/div/div/div/label")).click();
-        if(this.auction) {
-            driver.findElement(By.xpath("//input[@name='auction']/following-sibling::label")).click();
+        clickElement(By.xpath("//input[@name='interestedChange']/following-sibling::label"));
+        if (this.auction) {
+            clickElement(By.xpath("//input[@name='auction']/following-sibling::label"));
         }
-        driver.findElement(By.name("notes_lt")).sendKeys("Parduodamas sklypas su elektra.");
-        driver.findElement(By.name("video")).sendKeys("https://youtube.com/example");
-        driver.findElement(By.name("tour_3d")).sendKeys("https://3dturas.example.com");
-        driver.findElement(By.name("price")).sendKeys("50000");
-        driver.findElement(By.name("phone")).sendKeys("+37012345678");
-        driver.findElement(By.name("email")).sendKeys("test@example.com");
-        driver.findElement(By.xpath("//input[@data-title='Privatus asmuo']")).click();
+        sendKeysToElement(By.name("notes_lt"), "Parduodamas sklypas su elektra.");
+        sendKeysToElement(By.name("video"), "https://youtube.com/example");
+        sendKeysToElement(By.name("tour_3d"), "https://3dturas.example.com");
+        sendKeysToElement(By.name("price"), "50000");
+        sendKeysToElement(By.name("phone"), "+37012345678");
+        sendKeysToElement(By.name("email"), "test@example.com");
+        clickElement(By.xpath("//input[@data-title='Privatus asmuo']/following-sibling::label"));
+        clickElement(By.name("agree_to_rules"));
+        clickElement(By.name("submitFormButton"));
+    }
 
-        driver.findElement(By.name("agree_to_rules")).click();
-        driver.findElement(By.name("submitFormButton")).click();
+    // Pagalbiniai metodai
+    private WebElement waitForElementClickable(By locator, int index) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        List<WebElement> elements = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
+        return elements.get(index);
+    }
+
+    private WebElement waitForElementVisible(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    private void waitForShortDuration() {
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    private void waitForLongDuration() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    private void sendKeysToElement(By locator, String value) {
+        if (value != null && !value.isEmpty()) {
+            WebElement element = waitForElementVisible(locator);
+            element.clear();
+            element.sendKeys(value);
+        }
+    }
+
+    private void clickElement(By locator) {
+        WebElement element = waitForElementVisible(locator);
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(element))
+                .click();
     }
 }
-
