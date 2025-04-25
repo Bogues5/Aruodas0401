@@ -19,8 +19,8 @@ public class Plot {
     public String[] paskirtys;
     public String[] ypatybes;
     public String interestedChange;
+    public boolean auction;
     public String notesLt;
-    public String uploadPhoto;
     public String video;
     public String tour3d;
     public String price;
@@ -62,16 +62,18 @@ public class Plot {
         for (int i = 0; i < this.ypatybes.length; i++) {
             WebElement vienaYpatybe = driver.findElement(By.xpath("//input[@data-title='" + this.ypatybes[i] + "']/following-sibling::label"));
             vienaYpatybe.click();
-        }
 
+        }
+        driver.findElement(By.xpath("/html/body/div[1]/div[2]/form/ul/li[22]/div/div/div/label")).click();
+        if(this.auction) {
+            driver.findElement(By.xpath("//input[@name='auction']/following-sibling::label")).click();
+        }
         driver.findElement(By.name("notes_lt")).sendKeys("Parduodamas sklypas su elektra.");
         driver.findElement(By.name("video")).sendKeys("https://youtube.com/example");
         driver.findElement(By.name("tour_3d")).sendKeys("https://3dturas.example.com");
         driver.findElement(By.name("price")).sendKeys("50000");
         driver.findElement(By.name("phone")).sendKeys("+37012345678");
         driver.findElement(By.name("email")).sendKeys("test@example.com");
-
-
         driver.findElement(By.xpath("//input[@data-title='Privatus asmuo']")).click();
 
         driver.findElement(By.name("agree_to_rules")).click();
