@@ -9,7 +9,7 @@ import java.time.Duration;
 import java.util.List;
 
 public class Plot {
-    private WebDriver driver;
+    public WebDriver driver;
     public String region, district, quartal, street, objNo, rcNo, plotSize, notes_lt, notes_en, notes_ru, video, tour3d, price, phone, email;
     public int[] intendances, specials;
     public boolean interestedChange, auction, dontShowInAds, cbdontWantChat, cbagreeToRules;
@@ -32,7 +32,7 @@ public class Plot {
         for (int i = 0; i < checks.length; i++) if (checks[i]) toggleCheckbox(checkNames[i], wait);
     }
 
-    private void fillDropdown(int i, String val, WebDriverWait wait) {
+    public void fillDropdown(int i, String val, WebDriverWait wait) {
         if (val != null && !val.isEmpty()) {
             List<WebElement> drops = driver.findElements(By.className("dropdown-input-value-title"));
             if (i < drops.size()) {
@@ -43,11 +43,11 @@ public class Plot {
         }
     }
 
-    private void fillTextField(String name, String val) {
+    public void fillTextField(String name, String val) {
         if (val != null && !val.isEmpty()) driver.findElement(By.name(name)).sendKeys(val);
     }
 
-    private void toggleCheckbox(String name, WebDriverWait wait) {
+    public void toggleCheckbox(String name, WebDriverWait wait) {
         WebElement cb = wait.until(ExpectedConditions.elementToBeClickable(By.name(name)));
         if (!cb.isSelected()) cb.click();
     }

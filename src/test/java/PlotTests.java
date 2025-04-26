@@ -4,29 +4,29 @@ package org.example.tests;
 import org.example.Plot;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import java.time.Duration;
 
 public class PlotTests {
-    private WebDriver driver;
+    public WebDriver driver;
+    public WebDriverWait wait;
 
     @BeforeClass
     public void setUp() {
 
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.findElement(By.xpath("//*[@id=\"onetrust-accept-btn-handler\"]")).click();
         driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=11&offer_type=1");
-
-
-
-
-
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("onetrust-accept-btn-handler")));
+        element.click();
 
     }
-
-
 
     @Test
     public void testFillFormMethod() {
@@ -46,8 +46,4 @@ public class PlotTests {
         Assert.assertEquals(driver.findElement(By.name("rcNo")).getAttribute("value"), "67890");
     }
 
-    @AfterClass
-    public void tearDown() {
-   //     if (driver != null) driver.quit();
-    }
 }
