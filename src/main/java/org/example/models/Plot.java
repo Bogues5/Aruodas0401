@@ -20,13 +20,9 @@ public class Plot {
     public String notes_ru;
     public String[] photos;
     public String video;
-
     public String tour3d;
-
     public String price;
-
     public String phone;
-
     public String email;
     public boolean dontShowInAds;
     public boolean cbdontWantChat;
@@ -104,3 +100,4 @@ public class Plot {
     }
 
 }
+

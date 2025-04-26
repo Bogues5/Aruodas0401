@@ -1,43 +1,53 @@
-import org.example.models.Plot;
+// C:\Users\Halo 5\.cache\selenium\chromedriver\win64\135.0.7049.114
+//chrome driver kelias pasirašiau sau
+package org.example.tests;
+import org.example.Plot;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-
-import java.time.Duration;
+import org.testng.annotations.*;
 
 public class PlotTests {
-    public static WebDriver driver;
+    private WebDriver driver;
 
     @BeforeClass
-    public void setUp(){
+    public void setUp() {
+
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        acceptcookies();
-    }
-
-    private void acceptcookies() {
+        driver.findElement(By.xpath("//*[@id=\"onetrust-accept-btn-handler\"]")).click();
         driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=11&offer_type=1");
-        driver.findElement(By.id("onetrust-accept-btn-handler")).click();
+
+
+
+
+
+
     }
+
+
 
     @Test
-    public void positiveTest(){
-        Plot p = new Plot(driver,"Vilnius","Vilniaus m.","Baltupiai","Goštauto","43","4444-44444-4444","40",new int[]{1,3,7},new int[]{1,3,7},false,false,"pardodu sklipa", "sklip for seil", "a...",new String[]{"",""},"youtube.com","tour3d.com","40000","+37065874125","ne@tavo.reikalas",false,true,1,true);
-        p.fill();
-        String actual = "";
-        Assert.assertEquals(actual,"");
+    public void testFillFormMethod() {
+        Plot plot = new Plot(driver);
+        plot.region = "Kaunas";
+        plot.district = "Centras";
+        plot.quartal = "Senamiestis";
+        plot.street = "Laisvės al.";
+        plot.objNo = "10";
+        plot.rcNo = "67890";
+        plot.plotSize = "200";
+        plot.auction = true;
+        plot.price = "75000";
+        plot.fill();
+        Assert.assertEquals(driver.findElement(By.name("price")).getAttribute("value"), "75000");
+        Assert.assertTrue(driver.findElement(By.name("auction")).isSelected());
+        Assert.assertEquals(driver.findElement(By.name("rcNo")).getAttribute("value"), "67890");
     }
 
-    @Test
-    public void positiveTest2(){
-        Plot p = new Plot(driver,"Vilnius","Vilniaus m.","Baltupiai","ryto","43","4444-44444-4444","40",new int[]{1,3,7},new int[]{1,3,7},false,false,"pardodu sklipa", "sklip for seil", "a...",new String[]{"",""},"youtube.com","tour3d.com","40000","+37065874125","ne@tavo.reikalas",false,true,1,true);
-        p.fill();
-        String actual = "";
-        Assert.assertEquals(actual,"");
+    @AfterClass
+    public void tearDown() {
+   //     if (driver != null) driver.quit();
     }
-
 }
