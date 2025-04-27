@@ -61,26 +61,24 @@ KODO LOGIKOS APRAŠYMAS
 
 package org.example;
 
-import org.openqa.selenium.By;                             // Lokatorių paieškai naudojamas klasė
-import org.openqa.selenium.Keys;                           // Leidžia simuliuoti klaviatūros paspaudimus (pvz., ENTER)
-import org.openqa.selenium.WebDriver;                     // WebDriver sąsaja; pagrindinė naršyklės kontrolė
-import org.openqa.selenium.WebElement;                    // Atstovauja HTML elementą
-import org.openqa.selenium.chrome.ChromeDriver;          // ChromeDriver klasė; naudojama naršyklės atidarymui
-import org.openqa.selenium.interactions.Actions;          // Leidžia simuliuoti klaviatūros ir pelės įvykius
-import org.openqa.selenium.support.ui.ExpectedCondition;  // Naudojama kurti individualias laukimo sąlygas
-import org.openqa.selenium.support.ui.ExpectedConditions; // Numatyti laukimo kriterijai (pvz., elemento matomumas)
-import org.openqa.selenium.support.ui.WebDriverWait;        // Leidžia laukti, kol įvyksta tam tikra sąlyga
-import org.testng.annotations.Test;                        // TestNG anotacija testams žymėti
-import org.testng.Assert;                                  // TestNG asercijos, skirtos patikrinti rezultatą
-import java.time.Duration;                                 // Leidžia nustatyti laiko intervalus
-import java.util.Arrays;                                   // Naudojama lengvai sukurti sąrašus
-import java.util.List;                                     // List sąsaja
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;          // Naudojama sukurti Chrome naršyklės instanciją.
+import org.openqa.selenium.interactions.Actions;          // Leidžia simuliuoti klaviatūros ir pelės įvykius.
+import org.openqa.selenium.support.ui.ExpectedCondition;  // Leidžia kurti individualias laukimo sąlygas.
+import org.openqa.selenium.support.ui.ExpectedConditions; // Naudojama dažniausiai pasitaikančioms laukimo sąlygoms.
+import org.openqa.selenium.support.ui.WebDriverWait;        // Leidžia laukti, kol įvyksta tam tikra sąlyga.
+import org.testng.annotations.Test;                        // TestNG anotacija testams žymėti.
+import org.testng.Assert;                                  // TestNG asercijų metodai tikrinimui.
+import java.time.Duration;                                 // Leidžia nustatyti laiko intervalus.
+import java.util.Arrays;                                   // Naudojama greitai sukurti masyvus/sąrašus.
+import java.util.List;                                     // List duomenų struktūra.
 
-// Public TestNG klasė, skirta testuoti Plot klasės funkcionalumą ir naršyklės sąveiką su Selenium.
 public class PlotTests {
 
-    // Helper metodas, kuris laukia 4 sekundes naudojant WebDriverWait.
-    public void waitForFourSeconds(WebDriver driver) {
+    /**
+     * Helper metodas, kuris laukia 4 sekundes naudodamas WebDriverWait.
+     */
+    private void waitForFourSeconds(WebDriver driver) {
         new WebDriverWait(driver, Duration.ofSeconds(4), Duration.ofMillis(500))
                 .until(new ExpectedCondition<Boolean>() {
                     long startTime = System.currentTimeMillis(); // Įrašome laukimo pradžios laiką
@@ -92,85 +90,99 @@ public class PlotTests {
                 });
     }
 
-    // Metodas, ieškantis dropdown elementų pagal pilną (normalize-space) label tekstą
-// ir po pasirinkimo laukia 4 sekundes, tada simuliuoja ENTER paspaudimą.
-    public void selectLocationFields(WebDriver driver) {
-        // Sukuriame explicit wait objektą, laukiant iki 10 sekundžių, kol elementai taps interaktyvūs.
+    /**
+     * Metodas, kuris suranda ir pasirenka savivaldybės, gyvenvietės, mikrorajono ir gatvės laukus.
+     * Paieška vykdoma pagal label tekstą (naudojant normalize-space) arba absoliutų XPath, kai reikia.
+     * Tarp pasirinkimų laukiam 4 sekundes, po kurių simuliuojamas ENTER paspaudimas.
+     */
+    private void selectLocationFields(WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        // Sukuriame Actions objektą, skirtą simuliuoti klaviatūros įvykius (pvz., paspausti ENTER).
         Actions actions = new Actions(driver);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
 
-        // 1. Išsirenkame "Savivaldybė" lauką pagal pilną label tekstą.
-        // Naudojame normalize-space, kad pašalintume nereikalingas tarpus.
-        WebElement savivaldybeElement = wait.until(ExpectedConditions.elementToBeClickable(
+        // 1. Select "Savivaldybė"
+        WebElement savivaldybeDropdown = wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//label[normalize-space()='Savivaldybė']/following-sibling::*")
         ));
-        savivaldybeElement.click();  // Paspaudžiame savivaldybės dropdown meniu.
-        waitForFourSeconds(driver);  // Laukiame 4 sekundes, kad dropdown pilnai išsiskleistų.
-        actions.sendKeys(Keys.RETURN).perform(); // Simuliuojame ENTER paspaudimą, patvirtinant pasirinkimą.
+        savivaldybeDropdown.click();
+        waitForFourSeconds(driver);
+        actions.sendKeys(Keys.RETURN).perform();
 
-        // 2. Išsirenkame "Gyvenvietė" lauką pagal pilną label tekstą.
-        WebElement gyvenvieteElement = wait.until(ExpectedConditions.elementToBeClickable(
+        // 2. Select "Gyvenvietė"
+        WebElement gyvenvieteDropdown = wait.until(ExpectedConditions.elementToBeClickable(
                 By.xpath("//label[normalize-space()='Gyvenvietė']/following-sibling::*")
         ));
-        gyvenvieteElement.click();  // Paspaudžiame, kad atidarytume gyvenvietės pasirinkimus.
-        waitForFourSeconds(driver);  // Laukiame 4 sekundes.
-        actions.sendKeys(Keys.RETURN).perform(); // Paspaudžiame ENTER.
+        gyvenvieteDropdown.click();
+        waitForFourSeconds(driver);
+        actions.sendKeys(Keys.RETURN).perform();
 
-        // 3. Išsirenkame "Mikrorajonas" lauką pagal pilną label tekstą.
-        WebElement mikrorajonasElement = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//label[normalize-space()='Mikrorajonas']/following-sibling::*")
+        // 3. Select "Mikrorajonas" (Ensure dropdown is present)
+        WebElement mikrorajonasDropdown = wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("/html/body/div[2]/div[3]/div/ul")
         ));
-        mikrorajonasElement.click();  // Paspaudžiame, kad atidarytume mikrorajono pasirinkimus.
-        waitForFourSeconds(driver);    // Laukiame 4 sekundes.
-        actions.sendKeys(Keys.RETURN).perform(); // Simuliuojame ENTER paspaudimą.
+        mikrorajonasDropdown.click();
 
-        // 4. Išsirenkame "Gatvė" lauką pagal pilną label tekstą.
-        WebElement gatveElement = wait.until(ExpectedConditions.elementToBeClickable(
+        // Ensure dropdown expands fully
+        waitForFourSeconds(driver);
+
+        // Locate "Balsiai" using a stable XPath, ensuring it is interactable
+        WebElement mikrorajonasElement = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//li[@data-search-string='balsiai']")
+        ));
+
+        // Scroll element into view before clicking
+        js.executeScript("arguments[0].scrollIntoView(true);", mikrorajonasElement);
+        mikrorajonasElement.click();
+        waitForFourSeconds(driver);
+        actions.sendKeys(Keys.RETURN).perform();
+
+        // 4. Select "Gatvė" (Ensure dropdown exists first)
+        WebElement gatveDropdown = wait.until(ExpectedConditions.presenceOfElementLocated(
                 By.xpath("//label[normalize-space()='Gatvė']/following-sibling::*")
         ));
-        gatveElement.click();       // Paspaudžiame, kad atidarytume gatvės pasirinkimus.
-        waitForFourSeconds(driver); // Laukiame 4 sekundes.
-        actions.sendKeys(Keys.RETURN).perform(); // Simuliuojame ENTER paspaudimą.
+        gatveDropdown.click();
+        waitForFourSeconds(driver);
+
+        // Ensure stable selection of street dropdown
+        WebElement gatveElement = wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//li[contains(text(),'Gatvė')]")
+        ));
+
+        js.executeScript("arguments[0].scrollIntoView(true);", gatveElement);
+        gatveElement.click();
+        waitForFourSeconds(driver);
+        actions.sendKeys(Keys.RETURN).perform();
     }
 
-    // Testas, patikrinantis, ar Plot objektas yra teisingai inicializuotas ir visi laukai turi tikėtiną reikšmę.
+
+
+    /**
+     * Testas, tikrinantis, kad Plot objektas yra teisingai sukurtas ir visi laukai turi tikėtiną reikšmę.
+     */
     @Test
     public void testPlotCreation() {
-        // Sukuriame paskirties variantų sąrašą.
-        List<String> purposes = Arrays.asList(
-                "property", "manufacturingland", "farm", "garden", "forest",
-                "factory", "storage", "comm", "recr", "none"
-        );
-        // Sukuriame specialiųjų ypatybių sąrašą.
-        List<Integer> specialFeatures = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 11, 501);
-        // Aprašymo tekstai įvairiomis kalbomis:
-        String notesLt = "Sklypas mane tenkina ir norėčiau daugiau galimybių rinktis apmokėjimo būdui";
-        String notesEn = "The plot meets my requirements and I would like more options for selecting the payment method";
-        String notesRu = "Участок мне подходит, и я хотел бы иметь больше возможностей для выбора способа оплаты.";
-        // Media nuorodos:
-        String video = "https://www.youtube.com/embed/sklypaiExample";
-        String tour3d = "https://www.example.com/3d-tour/sklypas";
-        // Kaina, telefono numeris, el. paštas ir kontaktavimo nustatymai:
-        int price = 35000;
-        String phone = "+37060000000";
-        String email = "example@example.com";
-        boolean dontShowInAds = false;
-        boolean dontWantChat = true;
-        int accountType = 1;         // Vartotojo tipas: 1 = Privatus asmuo.
-        boolean agreeToRules = true; // Vartotojas sutinka su taisyklėmis.
+        List<String> purposes = Arrays.asList("property", "manufacturingland", "farm", "garden", "forest",
+                "factory", "storage", "comm", "recr", "none"); // Paskirties variantų sąrašas
+        List<Integer> specialFeatures = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 11, 501); // Specialiųjų ypatybių sąrašas
+        String notesLt = "Sklypas mane tenkina ir norėčiau daugiau galimybių rinktis apmokėjimo būdui"; // Lietuviškas aprašymas
+        String notesEn = "The plot meets my requirements and I would like more options for selecting the payment method"; // Angliškas aprašymas
+        String notesRu = "Участок мне подходит, и я хотел бы иметь больше возможностей для выбора способа оплаты."; // Rusiškas aprašymas
+        String video = "https://www.youtube.com/embed/sklypaiExample"; // Video nuoroda
+        String tour3d = "https://www.example.com/3d-tour/sklypas"; // 3D turo nuoroda
+        int price = 35000; // Sklypo kaina
+        String phone = "+37060000000"; // Telefono numeris
+        String email = "example@example.com"; // El. pašto adresas
+        boolean dontShowInAds = false; // Kontaktavimo flag (false reiškia – neišjungtas)
+        boolean dontWantChat = true;   // Chat flag (true – išjungta)
+        int accountType = 1;           // Vartotojo tipas – 1 = Privatus asmuo
+        boolean agreeToRules = true;   // Vartotojas sutinka su taisyklėmis
 
-        // RC numeris, į kurį įtrauktos nereikalingos raidės, kurias išfiltruoja sanitarizacijos metodas.
-        String unsanitizedRc = "1234-5678-ABC9012";
-        String expectedRc = "123456789012";
+        String unsanitizedRc = "1234-5678-ABC9012"; // RC numeris su nereikalingomis raidėmis
+        String expectedRc = "123456789012"; // Tikėtina RC numerio reikšmė po sanitizacijos
 
-        // Inicijuojame Plot objektą naudojant visus šiuos duomenis.
-        Plot plot = new Plot(
-                461, "Vilnius",
-                1, "Vilniaus m.",
-                2, "Balsiai",
-                21862, "A. Jakšto g.",
-                5, true,
+        // Sukuriame naują Plot objektą naudodami pavyzdinius duomenis.
+        Plot plot = new Plot(461, "Vilnius", 1, "Vilniaus m.", 2, "Balsiai",
+                21862, "A. Jakšto g.", 5, true,
                 unsanitizedRc, true,
                 200.0, purposes,
                 true, specialFeatures,
@@ -179,8 +191,7 @@ public class PlotTests {
                 video, tour3d,
                 price, phone, email,
                 dontShowInAds, dontWantChat,
-                accountType, agreeToRules
-        );
+                accountType, agreeToRules);
 
         // Asercijos tikrina, ar kiekvienas laukas atitinka lūkesčius.
         Assert.assertEquals(plot.regionCode, 461);                           // Tikrina regiono kodą.
@@ -192,7 +203,7 @@ public class PlotTests {
         Assert.assertEquals(plot.streetCode, 21862);                            // Tikrina gatvės kodą.
         Assert.assertEquals(plot.streetName, "A. Jakšto g.");                    // Tikrina gatvės pavadinimą.
         Assert.assertEquals(plot.houseNumber, 5);                               // Tikrina namo numerį.
-        Assert.assertTrue(plot.checkboxSelected);                               // Užtikrina, kad namo numerio rodymo flagas yra teisingas.
+        Assert.assertTrue(plot.checkboxSelected);                               // Užtikrina, kad namo numerio rodymo flagas yra true.
         Assert.assertEquals(plot.rcNumber, expectedRc);                         // Užtikrina, kad RC numeris yra teisingai išfiltruotas.
         Assert.assertTrue(plot.rcCheckboxSelected);                             // Tikrina RC rodymo flagą.
         Assert.assertEquals(plot.area, 200.0, 0.001);                             // Tikrina sklypo ploto dydį.
@@ -209,25 +220,28 @@ public class PlotTests {
         Assert.assertEquals(plot.price, price);                                   // Tikrina sklypo kainą.
         Assert.assertEquals(plot.phone, phone);                                   // Tikrina telefono numerį.
         Assert.assertEquals(plot.email, email);                                   // Tikrina el. pašto adresą.
-        Assert.assertEquals(plot.dontShowInAds, dontShowInAds);                   // Tikrina, kad kontaktavimas el. paštu neišjungtas.
+        Assert.assertEquals(plot.dontShowInAds, dontShowInAds);                   // Tikrina, kad kontaktavimo flagas yra false.
         Assert.assertTrue(plot.dontWantChat);                                     // Tikrina, kad chat funkcija išjungta.
         Assert.assertEquals(plot.accountType, accountType);                       // Tikrina vartotojo tipą.
         Assert.assertTrue(plot.agreeToRules);                                     // Tikrina sutikimą su taisyklėmis.
     }
 
-    // Testas statiniam metodui, kuris iš RC numerio pašalina netinkamus simbolius.
+    /**
+     * Testas statiniam metodui, kuris iš RC numerio pašalina netinkamus simbolius.
+     */
     @Test
     public void testRcNumberSanitizationStaticMethod() {
-        String unsanitized = "12ab34CD56";  // Įvestas RC numeris su raidėmis ir kitais simboliais.
-        String expected = "123456";         // Tikėtina reikšmė tik skaitmenimis.
+        String unsanitized = "12ab34CD56";  // Įvestas RC numeris su nerinktais simboliais.
+        String expected = "123456";         // Tikėtina reikšmė su tik skaitmenimis.
         Assert.assertEquals(expected, Plot.sanitizeRcNumber(unsanitized));
     }
 
 
 
-    // Selenium testas, kuris atidaro aruodas.lt skelbimų puslapį, laukiant kol pasirodys slapukų mygtukas,
-    // vėliau laukia pagal label surandamas dropdown laukus (savivaldybė, gyvenvietė, mikrorajonas, gatvė)
-    // ir simuliuoja ENTER paspaudimus su 4 sekundžių laukimo intervalais.
+    /**
+     * Selenium testas, kuris atidaro aruodas.lt skelbimų puslapį, laukiant kol pasirodys slapukų mygtukas,
+     * tada laukia elementų pagal label (savivaldybė, gyvenvietė, mikrorajonas, gatvė) išskleidimo ir simuliuoja ENTER paspaudimus.
+     */
     @Test
     public void testAruodasSkelbimas() {
 
@@ -235,16 +249,13 @@ public class PlotTests {
         driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=11&offer_type=1"); // Atidarome aruodas.lt skelbimų puslapį.
         driver.manage().window().maximize(); // Išdidiname naršyklės langą.
 
-        // Sukuriame explicit wait objektą su 10 sekundžių limitu.
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // Sukuriame explicit wait objektą su 10 sekundžių limitu.
         // Laukiame, kol bus pasiekiamas slapukų priėmimo mygtukas ir jį paspaudžiame.
         wait.until(ExpectedConditions.elementToBeClickable(By.id("onetrust-reject-all-handler"))).click();
         // Laukiame, kol URL patvirtins, kad esame teisingame puslapyje.
         wait.until(ExpectedConditions.urlContains("aruodas.lt/ideti-skelbima"));
 
-        // Iškviečiame metodą, kuris, remdamasis label tekstais, suranda dropdown elementus
-        // (savivaldybė, gyvenvietė, mikrorajonas, gatvė), laukia 4 sekundes tarp pasirinkimų
-        // ir simuliuoja ENTER paspaudimą.
+        // Iškviečiame metodą, kuris suranda dropdown laukus pagal label tekstą ir simuliuoja ENTER paspaudimus.
         selectLocationFields(driver);
 
         // Patikriname, ar URL vis dar atitinka lūkesčius.
@@ -253,13 +264,13 @@ public class PlotTests {
 
     }
 
-    // Selenium testas, tikrinantis toString() metodą ir ar jis teisingai atvaizduoja svarbias informaciją.
+    /**
+     * Selenium testas, tikrinantis Plot.toString() metodo gražų atvaizdavimą.
+     */
     @Test
     public void testPlotToString() {
-        List<String> purposes = Arrays.asList(
-                "property", "manufacturingland", "farm", "garden", "forest",
-                "factory", "storage", "comm", "recr", "none"
-        );
+        List<String> purposes = Arrays.asList("property", "manufacturingland", "farm", "garden", "forest",
+                "factory", "storage", "comm", "recr", "none");
         List<Integer> specialFeatures = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 11, 501);
         String notesLt = "Sklypas mane tenkina ir norėčiau daugiau galimybių rinktis apmokėjimo būdui";
         String notesEn = "The plot meets my requirements and I would like more options for selecting the payment method";
@@ -273,11 +284,11 @@ public class PlotTests {
         boolean dontWantChat = true;
         int accountType = 1;
         boolean agreeToRules = true;
+        String unsanitizedRc = "1234-5678-9012";
 
-        Plot plot = new Plot(
-                461, "Vilnius", 1, "Vilniaus m.", 2, "Balsiai",
+        Plot plot = new Plot(461, "Vilnius", 1, "Vilniaus m.", 2, "Balsiai",
                 21862, "A. Jakšto g.", 5, true,
-                "1234-5678-9012", true,
+                unsanitizedRc, true,
                 200.0, purposes,
                 true, specialFeatures,
                 true, false,
@@ -285,34 +296,32 @@ public class PlotTests {
                 video, tour3d,
                 price, phone, email,
                 dontShowInAds, dontWantChat,
-                accountType, agreeToRules
-        );
+                accountType, agreeToRules);
         String plotString = plot.toString();
 
-        // Patikriname, ar toString() išvestis turi visas svarbias informaciją.
-        Assert.assertTrue(plotString.contains("Vilnius"));                   // Tikrina regiono pavadinimą.
-        Assert.assertTrue(plotString.contains("Vilniaus m."));                  // Tikrina gyvenvietės pavadinimą.
-        Assert.assertTrue(plotString.contains("Balsiai"));                      // Tikrina mikrorajono pavadinimą.
-        Assert.assertTrue(plotString.contains("A. Jakšto g."));                 // Tikrina gatvės pavadinimą.
-        Assert.assertTrue(plotString.contains("5"));                            // Tikrina namo numerį.
-        Assert.assertTrue(plotString.contains("1234-5678-9012") ||
-                plotString.contains(Plot.sanitizeRcNumber("1234-5678-9012"))); // Tikrina RC numerį.
-        Assert.assertTrue(plotString.contains("200.0"));                        // Tikrina sklypo plotą.
-        Assert.assertTrue(plotString.contains("property"));                     // Tikrina bent vieną paskirties reikšmę.
-        Assert.assertTrue(plotString.contains("showAttributes=true"));          // Tikrina flagą "Žymėti ypatumus".
-        Assert.assertTrue(plotString.contains("interestedChange=true"));        // Tikrina flagą "Domina keitimas".
-        Assert.assertTrue(plotString.contains("auction=false"));              // Tikrina aukciono flagą.
-        Assert.assertTrue(plotString.contains(notesLt));                        // Tikrina lietuvišką aprašymą.
-        Assert.assertTrue(plotString.contains(notesEn));                        // Tikrina anglų aprašymą.
-        Assert.assertTrue(plotString.contains(notesRu));                        // Tikrina rusišką aprašymą.
-        Assert.assertTrue(plotString.contains(video));                          // Tikrina video nuorodą.
-        Assert.assertTrue(plotString.contains(tour3d));                         // Tikrina 3D turo nuorodą.
-        Assert.assertTrue(plotString.contains(String.valueOf(price)));            // Tikrina sklypo kainą.
-        Assert.assertTrue(plotString.contains(phone));                          // Tikrina telefono numerį.
-        Assert.assertTrue(plotString.contains(email));                          // Tikrina el. pašto adresą.
-        Assert.assertTrue(plotString.contains("dontShowInAds=false"));           // Tikrina email kontaktavimo flagą.
-        Assert.assertTrue(plotString.contains("dontWantChat=true"));             // Tikrina chat flagą.
-        Assert.assertTrue(plotString.contains("accountType=" + accountType));      // Tikrina vartotojo tipą.
-        Assert.assertTrue(plotString.contains("agreeToRules=true"));             // Tikrina sutikimą su taisyklėmis.
+        Assert.assertTrue(plotString.contains("Vilnius"), "Plot string turėtų turėti 'Vilnius'");
+        Assert.assertTrue(plotString.contains("Vilniaus m."), "Plot string turėtų turėti 'Vilniaus m.'");
+        Assert.assertTrue(plotString.contains("Balsiai"), "Plot string turėtų turėti 'Balsiai'");
+        Assert.assertTrue(plotString.contains("A. Jakšto g."), "Plot string turėtų turėti 'A. Jakšto g.'");
+        Assert.assertTrue(plotString.contains("5"), "Plot string turėtų turėti namo numerį '5'");
+        Assert.assertTrue(plotString.contains(Plot.sanitizeRcNumber(unsanitizedRc)),
+                "Plot string turėtų turėti sanitizuotą RC numerį");
+        Assert.assertTrue(plotString.contains("200.0"), "Plot string turėtų turėti '200.0'");
+        Assert.assertTrue(plotString.contains("property"), "Plot string turėtų turėti 'property'");
+        Assert.assertTrue(plotString.contains("showAttributes=true"), "Plot string turėtų turėti 'showAttributes=true'");
+        Assert.assertTrue(plotString.contains("interestedChange=true"), "Plot string turėtų turėti 'interestedChange=true'");
+        Assert.assertTrue(plotString.contains("auction=false"), "Plot string turėtų turėti 'auction=false'");
+        Assert.assertTrue(plotString.contains(notesLt), "Plot string turėtų turėti lietuvišką aprašymą");
+        Assert.assertTrue(plotString.contains(notesEn), "Plot string turėtų turėti anglų aprašymą");
+        Assert.assertTrue(plotString.contains(notesRu), "Plot string turėtų turėti rusišką aprašymą");
+        Assert.assertTrue(plotString.contains(video), "Plot string turėtų turėti video nuorodą");
+        Assert.assertTrue(plotString.contains(tour3d), "Plot string turėtų turėti 3D turo nuorodą");
+        Assert.assertTrue(plotString.contains(String.valueOf(price)), "Plot string turėtų turėti sklypo kainą");
+        Assert.assertTrue(plotString.contains(phone), "Plot string turėtų turėti telefono numerį");
+        Assert.assertTrue(plotString.contains(email), "Plot string turėtų turėti el. pašto adresą");
+        Assert.assertTrue(plotString.contains("dontShowInAds=false"), "Plot string turėtų turėti 'dontShowInAds=false'");
+        Assert.assertTrue(plotString.contains("dontWantChat=true"), "Plot string turėtų turėti 'dontWantChat=true'");
+        Assert.assertTrue(plotString.contains("accountType=" + accountType), "Plot string turėtų turėti vartotojo tipą");
+        Assert.assertTrue(plotString.contains("agreeToRules=true"), "Plot string turėtų turėti 'agreeToRules=true'");
     }
 }
