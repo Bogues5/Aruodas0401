@@ -1,3 +1,47 @@
+/*
+KODO LOGIKOS APRAŠYMAS
+
+1. Klasės struktūra ir duomenų saugojimas:
+   - Plot klasė centralizuotai saugo visą informaciją apie sklypą.
+   - Laukai apima regiono, gyvenvietės, mikrorajono, gatvės ir namo numerio duomenis.
+   - RC numeris yra specialiai „sanitizuojamas“ – naudojamas statinis metodas sanitizeRcNumber,
+     kuris pašalina visus ne-skaitmenis, užtikrindamas, kad į RC lauką pateikia tik skaitmenis.
+   - Kiti laukai apima sklypo plotą, paskirties variantus, specialių ypatybių sąrašą,
+     papildomus nustatymus (pvz., "Domina keitimas", "Varžytynės/aukcionas"),
+     aprašymus įvairiomis kalbomis (LT, EN, RU) bei media nuorodas (YouTube, 3D turas).
+   - Taip pat yra kontaktinė informacija – sklypo kaina, telefono numeris, el. paštas,
+     ir nustatymai, ar išjungti el. pašto kontaktavimą bei „chat“ funkciją.
+   - Galutinis laukas accountType nurodo, koks yra vartotojo tipas (pvz., 1 – Privatus asmuo).
+
+2. Statinis metodas RC numerio sanitarizacijai:
+   - Metodas sanitizeRcNumber(String rc) pašalina visus neatitinkančius skaitmenų simbolius.
+   - Tai reiškia, kad jei unikaliame RC numeryje bus raidžių (ar kitų netinkamų simbolių),
+     metodas grąžins tik skaitmenis, užtikrindamas duomenų vientisumą.
+
+3. Konstruktorius:
+   - Konstruktoriumi naudojame this. nuorodą, kad tiksliai priskirtume kiekvieną parametrą
+     atitinkamam klasės laukui.
+   - RC numeris yra paverčiamas panaudojant sanitizeRcNumber metodą, todėl galutiniame objekto
+     lauke lieka tik skaitmeninė reikšmė.
+
+4. Testavimo logika su TestNG ir Selenium:
+   - TestNG naudojamas vienetiniams testams atlikti: tikrinamos reikšmės atitinka lūkesčius.
+   - Assertions tikrina, kad kiekvienas laukas (pvz., regiono kodas, RC numerio sanitarizacija ir kt.)
+     yra teisingai inicializuotas.
+   - Selenium naudojamas sukurti naršyklės pagrindu vykdomus testus, pavyzdžiui:
+       • Vienas testas atidaro Google ir tikrina, ar puslapio title turi "Google".
+       • Kitas testas atidaro aruodas.lt nuorodą ir tikrina, ar URL atitinka lūkesčius.
+
+5. Kodų organizacija:
+   - Visi laukai yra vieši (public), todėl jie yra tiesiogiai pasiekiami.
+   - Overridden toString() metodas leidžia vienoje eilutėje peržiūrėti visus objekto duomenis,
+     kas padeda testavimo metu tikrinti, ar visi laukai tinkamai priskirti.
+   - Testuose naudojami assert metodai (TestNG Assert) užtikrinti, kad objekto būsena atitinka
+     numatytas reikšmes, įskaitant RC numerio sanitarizaciją.
+
+Šis išsamus aprašymas turi padėti suprasti, kaip mūsų kodo logika buvo sukonstruota.
+Galite šį komentarų bloką naudoti kaip dokumentaciją savo projekte IntelliJ IDEA aplinkoje.
+*/
 
 
 
