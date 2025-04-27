@@ -92,43 +92,44 @@ public class PlotTests {
                 });
     }
 
-    // Metodas, ieškantis pagal label tekstus dropdown elementų susaistymą ir po 4 sekundžių laukimo simuliuojantis ENTER paspaudimą.
+    // Metodas, ieškantis dropdown elementų pagal pilną (normalize-space) label tekstą
+// ir po pasirinkimo laukia 4 sekundes, tada simuliuoja ENTER paspaudimą.
     public void selectLocationFields(WebDriver driver) {
-        // Sukuriame WebDriverWait objektą, kad lauktume iki 10 sekundžių, kol elementas taps interaktyvus.
+        // Sukuriame explicit wait objektą, laukiant iki 10 sekundžių, kol elementai taps interaktyvūs.
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        // Sukuriame Actions objektą, skirtą simuliuoti klaviatūros įvykius.
+        // Sukuriame Actions objektą, skirtą simuliuoti klaviatūros įvykius (pvz., paspausti ENTER).
         Actions actions = new Actions(driver);
 
-        // 1. Pasirinkti "Savivaldybė"
-        // Ieškome elemento, kurio label tekstas turi "Savivaldybė", ir surandame jo tolimesnį elementą (dropdown).
+        // 1. Išsirenkame "Savivaldybė" lauką pagal pilną label tekstą.
+        // Naudojame normalize-space, kad pašalintume nereikalingas tarpus.
         WebElement savivaldybeElement = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//label[contains(text(),'Savivaldybė')]/following-sibling::*")
+                By.xpath("//label[normalize-space()='Savivaldybė']/following-sibling::*")
         ));
-        savivaldybeElement.click(); // Paspaudžiame elementą, kad išskleistume savivaldybės pasirinkimus.
-        waitForFourSeconds(driver); // Laukiame fiksuotą 4 sekundžių intervalą.
+        savivaldybeElement.click();  // Paspaudžiame savivaldybės dropdown meniu.
+        waitForFourSeconds(driver);  // Laukiame 4 sekundes, kad dropdown pilnai išsiskleistų.
         actions.sendKeys(Keys.RETURN).perform(); // Simuliuojame ENTER paspaudimą, patvirtinant pasirinkimą.
 
-        // 2. Pasirinkti "Gyvenvietė"
+        // 2. Išsirenkame "Gyvenvietė" lauką pagal pilną label tekstą.
         WebElement gyvenvieteElement = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//label[contains(text(),'Gyvenvietė')]/following-sibling::*")
+                By.xpath("//label[normalize-space()='Gyvenvietė']/following-sibling::*")
         ));
-        gyvenvieteElement.click(); // Paspaudžiame dropdown'ą, kad išskleistume gyvenvietės pasirinkimus.
-        waitForFourSeconds(driver); // Laukiame 4 sekundes.
-        actions.sendKeys(Keys.RETURN).perform(); // Simuliuojame ENTER paspaudimą.
+        gyvenvieteElement.click();  // Paspaudžiame, kad atidarytume gyvenvietės pasirinkimus.
+        waitForFourSeconds(driver);  // Laukiame 4 sekundes.
+        actions.sendKeys(Keys.RETURN).perform(); // Paspaudžiame ENTER.
 
-        // 3. Pasirinkti "Mikrorajonas"
+        // 3. Išsirenkame "Mikrorajonas" lauką pagal pilną label tekstą.
         WebElement mikrorajonasElement = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//label[contains(text(),'Mikrorajonas')]/following-sibling::*")
+                By.xpath("//label[normalize-space()='Mikrorajonas']/following-sibling::*")
         ));
-        mikrorajonasElement.click(); // Paspaudžiame mikrorajono dropdown'ą.
-        waitForFourSeconds(driver); // Laukiame 4 sekundes.
+        mikrorajonasElement.click();  // Paspaudžiame, kad atidarytume mikrorajono pasirinkimus.
+        waitForFourSeconds(driver);    // Laukiame 4 sekundes.
         actions.sendKeys(Keys.RETURN).perform(); // Simuliuojame ENTER paspaudimą.
 
-        // 4. Pasirinkti "Gatvė"
+        // 4. Išsirenkame "Gatvė" lauką pagal pilną label tekstą.
         WebElement gatveElement = wait.until(ExpectedConditions.elementToBeClickable(
-                By.xpath("//label[contains(text(),'Gatvė')]/following-sibling::*")
+                By.xpath("//label[normalize-space()='Gatvė']/following-sibling::*")
         ));
-        gatveElement.click(); // Paspaudžiame gatvės dropdown'ą.
+        gatveElement.click();       // Paspaudžiame, kad atidarytume gatvės pasirinkimus.
         waitForFourSeconds(driver); // Laukiame 4 sekundes.
         actions.sendKeys(Keys.RETURN).perform(); // Simuliuojame ENTER paspaudimą.
     }
