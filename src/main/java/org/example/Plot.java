@@ -1,54 +1,171 @@
+//
+
+
+
 package org.example;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
-import java.util.List;
+import java.util.List; // Import the List interface
 
+// Public class holding all information about a plot. All fields are accessed via public getters in our tests.
 public class Plot {
-    public WebDriver driver;
-    public String region, district, quartal, street, objNo, rcNo, plotSize, notes_lt, notes_en, notes_ru, video, tour3d, price, phone, email;
-    public int[] intendances, specials;
-    public boolean interestedChange, auction, dontShowInAds, cbdontWantChat, cbagreeToRules;
-    public String[] photos;
-    public int accountType;
+    public int regionCode;             // Region code (e.g., 461)
+    public String regionName;          // Region name (e.g., "Vilnius")
+    public int districtCode;           // District code (e.g., 1)
+    public String districtName;        // District name (e.g., "Vilniaus m.")
+    public int quartalCode;            // Quartal (micro-district) code (e.g., 2)
+    public String quartalName;         // Quartal name (e.g., "Balsiai")
+    public int streetCode;             // Street code (e.g., 21862)
+    public String streetName;          // Street name (e.g., "A. Jakšto g.")
+    public int houseNumber;            // House number (e.g., 5)
+    public boolean checkboxSelected;   // Flag: whether the house number display checkbox is checked
 
-    public Plot(WebDriver driver) {
-        this.driver = driver;
+    public String rcNumber;            // Unique RC number (stored only as digits)
+    public boolean rcCheckboxSelected; // Flag: whether the RC checkbox is selected
+
+    public double area;                // Plot area in ares (e.g., 200.0)
+    public List<String> purposes;      // List of purpose codes (e.g., "property", "manufacturingland", etc.)
+    public boolean showAttributes;     // Flag: whether the "Show Attributes" button is pressed
+    public List<Integer> specialFeatures; // List of special feature codes (e.g., [1,2,3,4,5,6,7,11,501])
+
+    public boolean interestedChange;   // Flag for "Domina keitimas"
+    public boolean auction;            // Flag for "Varžytynės/aukcionas"
+
+    public String notesLt;             // Description in Lithuanian
+    public String notesEn;             // Description in English
+    public String notesRu;             // Description in Russian
+
+    public String video;               // YouTube link or embed code
+    public String tour3d;              // 3D tour link
+
+    public int price;                  // Plot price in euros (e.g., 35000)
+    public String phone;               // Phone number (e.g., "+37060000000")
+    public String email;               // Email address (e.g., "example@example.com")
+    public boolean dontShowInAds;      // Flag: disable contact via email in the ad
+    public boolean dontWantChat;       // Flag: disable the chat functionality
+
+    public int accountType;            // Account type (1 = Privatus asmuo, 2 = Tarpininkas, 3 = Vystytojas/statytojas, 4 = Kitas verslo subjektas)
+    public boolean agreeToRules;       // Flag: whether the user agrees with the portal rules (must be true)
+
+    // Static method to sanitize the RC number field (keeps only digits).
+    public static String sanitizeRcNumber(String rc) {
+        if (rc == null) return "";                // Return an empty string if input is null.
+        return rc.replaceAll("[^0-9]", "");        // Remove any character that is not a digit.
     }
 
-    public void fill() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        String[] dropdowns = {region, district, quartal, street};
-        for (int i = 0; i < dropdowns.length; i++) fillDropdown(i, dropdowns[i], wait);
-        String[] fields = {objNo, rcNo, plotSize, String.valueOf(interestedChange), notes_lt, notes_en, notes_ru, video, tour3d, price, phone, email};
-        String[] names = {"objNo", "rcNo", "plotSize", "interestedChange", "notes_lt", "notes_en", "notes_ru", "video", "tour3d", "price", "phone", "email"};
-        for (int i = 0; i < fields.length; i++) fillTextField(names[i], fields[i]);
-        boolean[] checks = {auction, cbagreeToRules, dontShowInAds, cbdontWantChat};
-        String[] checkNames = {"auction", "agreeToRules", "dontShowInAds", "dontWantChat"};
-        for (int i = 0; i < checks.length; i++) if (checks[i]) toggleCheckbox(checkNames[i], wait);
+    // Public constructor initializing all fields using "this." for clarity.
+    public Plot(
+            int regionCode, String regionName,
+            int districtCode, String districtName,
+            int quartalCode, String quartalName,
+            int streetCode, String streetName,
+            int houseNumber, boolean checkboxSelected,
+            String rcNumber, boolean rcCheckboxSelected,
+            double area, List<String> purposes,
+            boolean showAttributes, List<Integer> specialFeatures,
+            boolean interestedChange, boolean auction,
+            String notesLt, String notesEn, String notesRu,
+            String video, String tour3d,
+            int price, String phone, String email,
+            boolean dontShowInAds, boolean dontWantChat,
+            int accountType, boolean agreeToRules
+    ) {
+        this.regionCode = regionCode;                    // Set region code.
+        this.regionName = regionName;                    // Set region name.
+        this.districtCode = districtCode;                // Set district code.
+        this.districtName = districtName;                // Set district name.
+        this.quartalCode = quartalCode;                  // Set quartal code.
+        this.quartalName = quartalName;                  // Set quartal name.
+        this.streetCode = streetCode;                    // Set street code.
+        this.streetName = streetName;                    // Set street name.
+        this.houseNumber = houseNumber;                  // Set house number.
+        this.checkboxSelected = checkboxSelected;        // Set house number checkbox flag.
+        this.rcNumber = sanitizeRcNumber(rcNumber);      // Sanitize and set RC number.
+        this.rcCheckboxSelected = rcCheckboxSelected;      // Set RC checkbox flag.
+        this.area = area;                                // Set plot area.
+        this.purposes = purposes;                        // Set purposes list.
+        this.showAttributes = showAttributes;            // Set "show attributes" flag.
+        this.specialFeatures = specialFeatures;          // Set special features list.
+        this.interestedChange = interestedChange;        // Set "domina keitimas" flag.
+        this.auction = auction;                          // Set auction flag.
+        this.notesLt = notesLt;                          // Set Lithuanian description.
+        this.notesEn = notesEn;                          // Set English description.
+        this.notesRu = notesRu;                          // Set Russian description.
+        this.video = video;                              // Set YouTube link/embed.
+        this.tour3d = tour3d;                            // Set 3D tour link.
+        this.price = price;                              // Set plot price.
+        this.phone = phone;                              // Set phone number.
+        this.email = email;                              // Set email address.
+        this.dontShowInAds = dontShowInAds;              // Set flag for email contact.
+        this.dontWantChat = dontWantChat;                // Set flag for chat functionality.
+        this.accountType = accountType;                  // Set account type.
+        this.agreeToRules = agreeToRules;                // Set agreement with rules flag.
     }
 
-    public void fillDropdown(int i, String val, WebDriverWait wait) {
-        if (val != null && !val.isEmpty()) {
-            List<WebElement> drops = driver.findElements(By.className("dropdown-input-value-title"));
-            if (i < drops.size()) {
-                drops.get(i).click();
-                String xp = i == 3 ? "//*[@id=\"streets_1\"]/li[1]/input" : "//*[@id=\"input_" + (i + 1) + "\"]/li[1]/input";
-                wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xp))).sendKeys(val + Keys.ENTER);
-            }
-        }
-    }
+    // Public getter methods for all fields.
+    public int getRegionCode() { return regionCode; }
+    public String getRegionName() { return regionName; }
+    public int getDistrictCode() { return districtCode; }
+    public String getDistrictName() { return districtName; }
+    public int getQuartalCode() { return quartalCode; }
+    public String getQuartalName() { return quartalName; }
+    public int getStreetCode() { return streetCode; }
+    public String getStreetName() { return streetName; }
+    public int getHouseNumber() { return houseNumber; }
+    public boolean isCheckboxSelected() { return checkboxSelected; }
+    public String getRcNumber() { return rcNumber; }
+    public boolean isRcCheckboxSelected() { return rcCheckboxSelected; }
+    public double getArea() { return area; }
+    public List<String> getPurposes() { return purposes; }
+    public boolean isShowAttributes() { return showAttributes; }
+    public List<Integer> getSpecialFeatures() { return specialFeatures; }
+    public boolean isInterestedChange() { return interestedChange; }
+    public boolean isAuction() { return auction; }
+    public String getNotesLt() { return notesLt; }
+    public String getNotesEn() { return notesEn; }
+    public String getNotesRu() { return notesRu; }
+    public String getVideo() { return video; }
+    public String getTour3d() { return tour3d; }
+    public int getPrice() { return price; }
+    public String getPhone() { return phone; }
+    public String getEmail() { return email; }
+    public boolean isDontShowInAds() { return dontShowInAds; }
+    public boolean isDontWantChat() { return dontWantChat; }
+    public int getAccountType() { return accountType; }
+    public boolean isAgreeToRules() { return agreeToRules; }
 
-    public void fillTextField(String name, String val) {
-        if (val != null && !val.isEmpty()) driver.findElement(By.name(name)).sendKeys(val);
-    }
-
-    public void toggleCheckbox(String name, WebDriverWait wait) {
-        WebElement cb = wait.until(ExpectedConditions.elementToBeClickable(By.name(name)));
-        if (!cb.isSelected()) cb.click();
+    // Overridden toString() method providing a full string representation of the plot instance.
+    @Override
+    public String toString() {
+        return "Plot{" +
+                "regionCode=" + regionCode +
+                ", regionName='" + regionName + '\'' +
+                ", districtCode=" + districtCode +
+                ", districtName='" + districtName + '\'' +
+                ", quartalCode=" + quartalCode +
+                ", quartalName='" + quartalName + '\'' +
+                ", streetCode=" + streetCode +
+                ", streetName='" + streetName + '\'' +
+                ", houseNumber=" + houseNumber +
+                ", checkboxSelected=" + checkboxSelected +
+                ", rcNumber='" + rcNumber + '\'' +
+                ", rcCheckboxSelected=" + rcCheckboxSelected +
+                ", area=" + area +
+                ", purposes=" + purposes +
+                ", showAttributes=" + showAttributes +
+                ", specialFeatures=" + specialFeatures +
+                ", interestedChange=" + interestedChange +
+                ", auction=" + auction +
+                ", notesLt='" + notesLt + '\'' +
+                ", notesEn='" + notesEn + '\'' +
+                ", notesRu='" + notesRu + '\'' +
+                ", video='" + video + '\'' +
+                ", tour3d='" + tour3d + '\'' +
+                ", price=" + price +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", dontShowInAds=" + dontShowInAds +
+                ", dontWantChat=" + dontWantChat +
+                ", accountType=" + accountType +
+                ", agreeToRules=" + agreeToRules +
+                '}';
     }
 }
