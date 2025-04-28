@@ -1,0 +1,22 @@
+<li>
+    <label class="form-field-input-label">
+        <span>Aprašymas</span>
+        <br>
+        <span class="error-arrow hide">Error</span>
+    </label><div class="input-style-textarea resizable" bis_skin_checked="1"><div bis_skin_checked="1"><input id="langLt" name="lang" type="radio" checked="">
+            <label class="lang-lt-label" for="langLt"><img src="https://static.aruodas.lt/static/img/lt.png" alt=""></label>
+                            <textarea name="notes_lt" cols="30" rows="10"></textarea>
+                    </div>
+        <div bis_skin_checked="1">
+            <input id="langEn" name="lang" type="radio">
+            <label class="lang-en-label" for="langEn"><img src="https://static.aruodas.lt/static/img/en.png" alt=""></label>
+                            <textarea name="notes_en" cols="30" rows="10"></textarea>
+                    </div>
+        <div bis_skin_checked="1">
+            <input id="langRu" name="lang" type="radio">
+            <label class="lang-ru-label" for="langRu"><img src="https://static.aruodas.lt/static/img/ru.png" alt=""></label>
+                            <textarea name="notes_ru" cols="30" rows="10"></textarea>
+                    </div>
+        <div class="clear" bis_skin_checked="1"></div>
+    </div>
+</li>

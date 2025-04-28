@@ -1,0 +1,16 @@
+<li class="">
+    <label class="form-field-input-label">
+        <span>
+                            Numeris                    </span>
+    </label>
+        <span class="input-style-text ">
+        <input onkeyup="checkInputHouseNum(this, 11);" name="FHouseNum" type="text" value="">
+    </span>
+            <div class="input-style-checkbox input-style-checkbox-extra" bis_skin_checked="1">
+            <div bis_skin_checked="1"><input type="hidden" name="show_house_num" value="0"><input id="cbshow_house_num" type="checkbox" name="show_house_num" value="1" checked="">
+                <label for="cbshow_house_num">
+                    <span></span>
+                    Rodyti                </label></div>
+        </div>
+        <span class="error-arrow hide">Error</span>
+</li>

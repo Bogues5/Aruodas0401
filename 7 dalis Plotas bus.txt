@@ -1,0 +1,15 @@
+<li class="
+        required-form-field            ">
+    <label for="fieldFAreaOverAll" class="form-field-input-label">
+        <span>Plotas (a)</span>
+    </label><!--
+    --><span class="input-interval-value hide">nuo</span><!--
+        --><span class="input-style-text-unit">
+                <input onkeyup="checkInputDecValue(this);" name="FAreaOverAll" id="fieldFAreaOverAll" type="text" value="">
+        <span class="input-right-unit">a</span>
+            </span><!--
+    --><!--
+    --><span class="error-arrow hide">Error</span><!--
+    --><!--
+        --><span class="hectar-field" id="hectarField"></span><!--
+        -->    </li>

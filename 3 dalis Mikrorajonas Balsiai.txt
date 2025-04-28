@@ -1,0 +1,312 @@
+<li id="quartalField" class="">
+    <label class="form-field-input-label form-label-multiline">
+        <span>Mikrorajonas</span>
+    </label><span class="input-width-wide input-style-dropdown">
+            <input name="FQuartal" class="dropdown-input-value" type="hidden" id="quartalValue" value="2">
+        <input onclick="openDropdownQuartal(event, this)" class="dropdown-input-value-title" type="text" readonly="" id="quartalTitle">
+
+            <span id="removeQuartalSelection" class="icon-remove-selection"></span><span onclick="openDropdownQuartal(event, this)" class="input-right-dropdown"></span>
+        <ul class="hide" id="quartalLoading">
+            <li class="manual-value-row">
+                <span class="manual-value-title">Įrašykite mikrorajoną:</span><br>
+                <input type="text" readonly="">
+            </li>
+            <li><img src="https://static.aruodas.lt/static/img/indicator.gif" alt=""></li>
+        </ul>
+                                    <ul id="quartals_1" class="dropdown-input-values-address">
+                                        <li class="manual-value-row">
+                        <span class="manual-value-title">Įrašykite mikrorajoną:</span><br>
+                        <input onclick="stopClick(event)" class="dropdown-input-search-value" onkeyup="findQuartalQueue(this, 'quartals_1', 'quartalLoading');" type="text">
+                    </li>
+                                                                <li class="drop-down-value-row selected-dropdown-elem" data-value="1" data-search-string="antakalnis" onclick="selectDropdownValue(this, 'Antakalnis')">
+                            Antakalnis                        </li>
+                                            <li class="drop-down-value-row" data-value="66090" data-search-string="antavilis" onclick="selectDropdownValue(this, 'Antavilis')">
+                            Antavilis                        </li>
+                                            <li class="drop-down-value-row" data-value="104" data-search-string="aukstieji paneriai" onclick="selectDropdownValue(this, 'Aukštieji Paneriai')">
+                            Aukštieji Paneriai                        </li>
+                                            <li class="drop-down-value-row" data-value="111" data-search-string="bajorai" onclick="selectDropdownValue(this, 'Bajorai')">
+                            Bajorai                        </li>
+                                            <li class="drop-down-value-row" data-value="2" data-search-string="balsiai" onclick="selectDropdownValue(this, 'Balsiai')">
+                            Balsiai                        </li>
+                                            <li class="drop-down-value-row" data-value="3" data-search-string="baltupiai" onclick="selectDropdownValue(this, 'Baltupiai')">
+                            Baltupiai                        </li>
+                                            <li class="drop-down-value-row" data-value="66089" data-search-string="bireliai" onclick="selectDropdownValue(this, 'Bireliai')">
+                            Bireliai                        </li>
+                                            <li class="drop-down-value-row" data-value="113" data-search-string="buivydiskes" onclick="selectDropdownValue(this, 'Buivydiškės')">
+                            Buivydiškės                        </li>
+                                            <li class="drop-down-value-row" data-value="146" data-search-string="bukciai" onclick="selectDropdownValue(this, 'Bukčiai')">
+                            Bukčiai                        </li>
+                                            <li class="drop-down-value-row" data-value="66078" data-search-string="burbiskes" onclick="selectDropdownValue(this, 'Burbiškės')">
+                            Burbiškės                        </li>
+                                            <li class="drop-down-value-row" data-value="166" data-search-string="didieji gulbinai" onclick="selectDropdownValue(this, 'Didieji Gulbinai')">
+                            Didieji Gulbinai                        </li>
+                                            <li class="drop-down-value-row" data-value="115" data-search-string="dvarcionys" onclick="selectDropdownValue(this, 'Dvarčionys')">
+                            Dvarčionys                        </li>
+                                            <li class="drop-down-value-row" data-value="5" data-search-string="fabijoniskes" onclick="selectDropdownValue(this, 'Fabijoniškės')">
+                            Fabijoniškės                        </li>
+                                            <li class="drop-down-value-row" data-value="116" data-search-string="filaretai" onclick="selectDropdownValue(this, 'Filaretai')">
+                            Filaretai                        </li>
+                                            <li class="drop-down-value-row" data-value="66093" data-search-string="galgiai" onclick="selectDropdownValue(this, 'Galgiai')">
+                            Galgiai                        </li>
+                                            <li class="drop-down-value-row" data-value="117" data-search-string="gariunai" onclick="selectDropdownValue(this, 'Gariūnai')">
+                            Gariūnai                        </li>
+                                            <li class="drop-down-value-row" data-value="118" data-search-string="gineitiskes" onclick="selectDropdownValue(this, 'Gineitiškės')">
+                            Gineitiškės                        </li>
+                                            <li class="drop-down-value-row" data-value="6" data-search-string="grigiskes" onclick="selectDropdownValue(this, 'Grigiškės')">
+                            Grigiškės                        </li>
+                                            <li class="drop-down-value-row" data-value="119" data-search-string="gudeliai" onclick="selectDropdownValue(this, 'Gudeliai')">
+                            Gudeliai                        </li>
+                                            <li class="drop-down-value-row" data-value="66091" data-search-string="guriai" onclick="selectDropdownValue(this, 'Guriai')">
+                            Guriai                        </li>
+                                            <li class="drop-down-value-row" data-value="7" data-search-string="jeruzale" onclick="selectDropdownValue(this, 'Jeruzalė')">
+                            Jeruzalė                        </li>
+                                            <li class="drop-down-value-row" data-value="8" data-search-string="justiniskes" onclick="selectDropdownValue(this, 'Justiniškės')">
+                            Justiniškės                        </li>
+                                            <li class="drop-down-value-row" data-value="120" data-search-string="kairenai" onclick="selectDropdownValue(this, 'Kairėnai')">
+                            Kairėnai                        </li>
+                                            <li class="drop-down-value-row" data-value="121" data-search-string="kalnenai" onclick="selectDropdownValue(this, 'Kalnėnai')">
+                            Kalnėnai                        </li>
+                                            <li class="drop-down-value-row" data-value="9" data-search-string="karoliniskes" onclick="selectDropdownValue(this, 'Karoliniškės')">
+                            Karoliniškės                        </li>
+                                            <li class="drop-down-value-row" data-value="102" data-search-string="kirtimai" onclick="selectDropdownValue(this, 'Kirtimai')">
+                            Kirtimai                        </li>
+                                            <li class="drop-down-value-row" data-value="66087" data-search-string="kryziokai" onclick="selectDropdownValue(this, 'Kryžiokai')">
+                            Kryžiokai                        </li>
+                                            <li class="drop-down-value-row" data-value="10" data-search-string="lazdynai" onclick="selectDropdownValue(this, 'Lazdynai')">
+                            Lazdynai                        </li>
+                                            <li class="drop-down-value-row" data-value="123" data-search-string="lazdyneliai" onclick="selectDropdownValue(this, 'Lazdynėliai')">
+                            Lazdynėliai                        </li>
+                                            <li class="drop-down-value-row" data-value="124" data-search-string="liepkalnis" onclick="selectDropdownValue(this, 'Liepkalnis')">
+                            Liepkalnis                        </li>
+                                            <li class="drop-down-value-row" data-value="106" data-search-string="markuciai" onclick="selectDropdownValue(this, 'Markučiai')">
+                            Markučiai                        </li>
+                                            <li class="drop-down-value-row" data-value="167" data-search-string="mazieji gulbinai" onclick="selectDropdownValue(this, 'Mažieji Gulbinai')">
+                            Mažieji Gulbinai                        </li>
+                                            <li class="drop-down-value-row" data-value="12" data-search-string="naujamiestis" onclick="selectDropdownValue(this, 'Naujamiestis')">
+                            Naujamiestis                        </li>
+                                            <li class="drop-down-value-row" data-value="126" data-search-string="naujaneriai" onclick="selectDropdownValue(this, 'Naujaneriai')">
+                            Naujaneriai                        </li>
+                                            <li class="drop-down-value-row" data-value="13" data-search-string="naujininkai" onclick="selectDropdownValue(this, 'Naujininkai')">
+                            Naujininkai                        </li>
+                                            <li class="drop-down-value-row" data-value="11" data-search-string="naujoji vilnia" onclick="selectDropdownValue(this, 'Naujoji Vilnia')">
+                            Naujoji Vilnia                        </li>
+                                            <li class="drop-down-value-row" data-value="66088" data-search-string="ozkiniai" onclick="selectDropdownValue(this, 'Ožkiniai')">
+                            Ožkiniai                        </li>
+                                            <li class="drop-down-value-row" data-value="128" data-search-string="pagiriai" onclick="selectDropdownValue(this, 'Pagiriai')">
+                            Pagiriai                        </li>
+                                            <li class="drop-down-value-row" data-value="103" data-search-string="paneriai" onclick="selectDropdownValue(this, 'Paneriai')">
+                            Paneriai                        </li>
+                                            <li class="drop-down-value-row" data-value="14" data-search-string="pasilaiciai" onclick="selectDropdownValue(this, 'Pašilaičiai')">
+                            Pašilaičiai                        </li>
+                                            <li class="drop-down-value-row" data-value="171" data-search-string="paupys" onclick="selectDropdownValue(this, 'Paupys')">
+                            Paupys                        </li>
+                                            <li class="drop-down-value-row" data-value="108" data-search-string="pavilnys" onclick="selectDropdownValue(this, 'Pavilnys')">
+                            Pavilnys                        </li>
+                                            <li class="drop-down-value-row" data-value="15" data-search-string="pilaite" onclick="selectDropdownValue(this, 'Pilaitė')">
+                            Pilaitė                        </li>
+                                            <li class="drop-down-value-row" data-value="107" data-search-string="rasos" onclick="selectDropdownValue(this, 'Rasos')">
+                            Rasos                        </li>
+                                            <li class="drop-down-value-row" data-value="147" data-search-string="salininkai" onclick="selectDropdownValue(this, 'Salininkai')">
+                            Salininkai                        </li>
+                                            <li class="drop-down-value-row" data-value="101" data-search-string="santariskes" onclick="selectDropdownValue(this, 'Santariškės')">
+                            Santariškės                        </li>
+                                            <li class="drop-down-value-row" data-value="129" data-search-string="sauletekis" onclick="selectDropdownValue(this, 'Saulėtekis')">
+                            Saulėtekis                        </li>
+                                            <li class="drop-down-value-row" data-value="16" data-search-string="senamiestis" onclick="selectDropdownValue(this, 'Senamiestis')">
+                            Senamiestis                        </li>
+                                            <li class="drop-down-value-row" data-value="17" data-search-string="seskine" onclick="selectDropdownValue(this, 'Šeškinė')">
+                            Šeškinė                        </li>
+                                            <li class="drop-down-value-row" data-value="132" data-search-string="siaures miestelis" onclick="selectDropdownValue(this, 'Šiaurės miestelis')">
+                            Šiaurės miestelis                        </li>
+                                            <li class="drop-down-value-row" data-value="18" data-search-string="snipiskes" onclick="selectDropdownValue(this, 'Šnipiškės')">
+                            Šnipiškės                        </li>
+                                            <li class="drop-down-value-row" data-value="148" data-search-string="tarande" onclick="selectDropdownValue(this, 'Tarandė')">
+                            Tarandė                        </li>
+                                            <li class="drop-down-value-row" data-value="134" data-search-string="traku voke" onclick="selectDropdownValue(this, 'Trakų Vokė')">
+                            Trakų Vokė                        </li>
+                                            <li class="drop-down-value-row" data-value="66092" data-search-string="turniskes" onclick="selectDropdownValue(this, 'Turniškės')">
+                            Turniškės                        </li>
+                                            <li class="drop-down-value-row" data-value="19" data-search-string="uzupis" onclick="selectDropdownValue(this, 'Užupis')">
+                            Užupis                        </li>
+                                            <li class="drop-down-value-row" data-value="66094" data-search-string="uzusieniai" onclick="selectDropdownValue(this, 'Užusieniai')">
+                            Užusieniai                        </li>
+                                            <li class="drop-down-value-row" data-value="135" data-search-string="valakampiai" onclick="selectDropdownValue(this, 'Valakampiai')">
+                            Valakampiai                        </li>
+                                            <li class="drop-down-value-row" data-value="149" data-search-string="verkiai" onclick="selectDropdownValue(this, 'Verkiai')">
+                            Verkiai                        </li>
+                                            <li class="drop-down-value-row" data-value="20" data-search-string="vilkpede" onclick="selectDropdownValue(this, 'Vilkpėdė')">
+                            Vilkpėdė                        </li>
+                                            <li class="drop-down-value-row" data-value="21" data-search-string="virsuliskes" onclick="selectDropdownValue(this, 'Viršuliškės')">
+                            Viršuliškės                        </li>
+                                            <li class="drop-down-value-row" data-value="144" data-search-string="visoriai" onclick="selectDropdownValue(this, 'Visoriai')">
+                            Visoriai                        </li>
+                                            <li class="drop-down-value-row" data-value="136" data-search-string="zujunai" onclick="selectDropdownValue(this, 'Zujūnai')">
+                            Zujūnai                        </li>
+                                            <li class="drop-down-value-row" data-value="22" data-search-string="zemieji paneriai" onclick="selectDropdownValue(this, 'Žemieji Paneriai')">
+                            Žemieji Paneriai                        </li>
+                                            <li class="drop-down-value-row" data-value="23" data-search-string="zirmunai" onclick="selectDropdownValue(this, 'Žirmūnai')">
+                            Žirmūnai                        </li>
+                                            <li class="drop-down-value-row" data-value="24" data-search-string="zverynas" onclick="selectDropdownValue(this, 'Žvėrynas')">
+                            Žvėrynas                        </li>
+                                    </ul>
+                            <ul id="quartals_6" class="hide">
+                                        <li class="manual-value-row">
+                        <span class="manual-value-title">Įrašykite mikrorajoną:</span><br>
+                        <input onclick="stopClick(event)" class="dropdown-input-search-value" onkeyup="findQuartalQueue(this, 'quartals_6', 'quartalLoading');" type="text">
+                    </li>
+                                                                <li class="drop-down-value-row" data-value="25" data-search-string="aleksotas" onclick="selectDropdownValue(this, 'Aleksotas')">
+                            Aleksotas                        </li>
+                                            <li class="drop-down-value-row" data-value="66098" data-search-string="amaliai" onclick="selectDropdownValue(this, 'Amaliai')">
+                            Amaliai                        </li>
+                                            <li class="drop-down-value-row" data-value="145" data-search-string="aukstieji sanciai" onclick="selectDropdownValue(this, 'Aukštieji Šančiai')">
+                            Aukštieji Šančiai                        </li>
+                                            <li class="drop-down-value-row" data-value="66096" data-search-string="aukstutiniai kaniukai" onclick="selectDropdownValue(this, 'Aukštutiniai Kaniūkai')">
+                            Aukštutiniai Kaniūkai                        </li>
+                                            <li class="drop-down-value-row" data-value="100" data-search-string="centras" onclick="selectDropdownValue(this, 'Centras')">
+                            Centras                        </li>
+                                            <li class="drop-down-value-row" data-value="26" data-search-string="dainava" onclick="selectDropdownValue(this, 'Dainava')">
+                            Dainava                        </li>
+                                            <li class="drop-down-value-row" data-value="27" data-search-string="eiguliai" onclick="selectDropdownValue(this, 'Eiguliai')">
+                            Eiguliai                        </li>
+                                            <li class="drop-down-value-row" data-value="139" data-search-string="freda" onclick="selectDropdownValue(this, 'Freda')">
+                            Freda                        </li>
+                                            <li class="drop-down-value-row" data-value="66111" data-search-string="griciupis" onclick="selectDropdownValue(this, 'Gričiupis')">
+                            Gričiupis                        </li>
+                                            <li class="drop-down-value-row" data-value="28" data-search-string="kalnieciai" onclick="selectDropdownValue(this, 'Kalniečiai')">
+                            Kalniečiai                        </li>
+                                            <li class="drop-down-value-row" data-value="66080" data-search-string="kleboniskis" onclick="selectDropdownValue(this, 'Kleboniškis')">
+                            Kleboniškis                        </li>
+                                            <li class="drop-down-value-row" data-value="150" data-search-string="lampedziai" onclick="selectDropdownValue(this, 'Lampėdžiai')">
+                            Lampėdžiai                        </li>
+                                            <li class="drop-down-value-row" data-value="66086" data-search-string="marvele" onclick="selectDropdownValue(this, 'Marvelė')">
+                            Marvelė                        </li>
+                                            <li class="drop-down-value-row" data-value="31" data-search-string="palemonas" onclick="selectDropdownValue(this, 'Palemonas')">
+                            Palemonas                        </li>
+                                            <li class="drop-down-value-row" data-value="32" data-search-string="panemune" onclick="selectDropdownValue(this, 'Panemunė')">
+                            Panemunė                        </li>
+                                            <li class="drop-down-value-row" data-value="66110" data-search-string="panerys" onclick="selectDropdownValue(this, 'Panerys')">
+                            Panerys                        </li>
+                                            <li class="drop-down-value-row" data-value="33" data-search-string="petrasiunai" onclick="selectDropdownValue(this, 'Petrašiūnai')">
+                            Petrašiūnai                        </li>
+                                            <li class="drop-down-value-row" data-value="66095" data-search-string="rokai" onclick="selectDropdownValue(this, 'Rokai')">
+                            Rokai                        </li>
+                                            <li class="drop-down-value-row" data-value="34" data-search-string="romainiai" onclick="selectDropdownValue(this, 'Romainiai')">
+                            Romainiai                        </li>
+                                            <li class="drop-down-value-row" data-value="35" data-search-string="sargenai" onclick="selectDropdownValue(this, 'Sargėnai')">
+                            Sargėnai                        </li>
+                                            <li class="drop-down-value-row" data-value="36" data-search-string="senamiestis" onclick="selectDropdownValue(this, 'Senamiestis')">
+                            Senamiestis                        </li>
+                                            <li class="drop-down-value-row" data-value="38" data-search-string="silainiai" onclick="selectDropdownValue(this, 'Šilainiai')">
+                            Šilainiai                        </li>
+                                            <li class="drop-down-value-row" data-value="156" data-search-string="vaisvydava" onclick="selectDropdownValue(this, 'Vaišvydava')">
+                            Vaišvydava                        </li>
+                                            <li class="drop-down-value-row" data-value="66079" data-search-string="viciunai" onclick="selectDropdownValue(this, 'Vičiūnai')">
+                            Vičiūnai                        </li>
+                                            <li class="drop-down-value-row" data-value="39" data-search-string="vilijampole" onclick="selectDropdownValue(this, 'Vilijampolė')">
+                            Vilijampolė                        </li>
+                                            <li class="drop-down-value-row" data-value="141" data-search-string="vytenai" onclick="selectDropdownValue(this, 'Vytėnai')">
+                            Vytėnai                        </li>
+                                            <li class="drop-down-value-row" data-value="40" data-search-string="zaliakalnis" onclick="selectDropdownValue(this, 'Žaliakalnis')">
+                            Žaliakalnis                        </li>
+                                            <li class="drop-down-value-row" data-value="37" data-search-string="zemieji sanciai" onclick="selectDropdownValue(this, 'Žemieji Šančiai')">
+                            Žemieji Šančiai                        </li>
+                                            <li class="drop-down-value-row" data-value="66097" data-search-string="zemutiniai kaniukai" onclick="selectDropdownValue(this, 'Žemutiniai Kaniūkai')">
+                            Žemutiniai Kaniūkai                        </li>
+                                    </ul>
+                            <ul id="quartals_7" class="hide">
+                                        <li class="manual-value-row">
+                        <span class="manual-value-title">Įrašykite mikrorajoną:</span><br>
+                        <input onclick="stopClick(event)" class="dropdown-input-search-value" onkeyup="findQuartalQueue(this, 'quartals_7', 'quartalLoading');" type="text">
+                    </li>
+                                                                <li class="drop-down-value-row" data-value="41" data-search-string="alksnyne" onclick="selectDropdownValue(this, 'Alksnynė')">
+                            Alksnynė                        </li>
+                                            <li class="drop-down-value-row" data-value="42" data-search-string="baltija" onclick="selectDropdownValue(this, 'Baltija')">
+                            Baltija                        </li>
+                                            <li class="drop-down-value-row" data-value="43" data-search-string="banduziai" onclick="selectDropdownValue(this, 'Bandužiai')">
+                            Bandužiai                        </li>
+                                            <li class="drop-down-value-row" data-value="160" data-search-string="centras" onclick="selectDropdownValue(this, 'Centras')">
+                            Centras                        </li>
+                                            <li class="drop-down-value-row" data-value="44" data-search-string="debrecenas" onclick="selectDropdownValue(this, 'Debrecenas')">
+                            Debrecenas                        </li>
+                                            <li class="drop-down-value-row" data-value="157" data-search-string="giruliai" onclick="selectDropdownValue(this, 'Giruliai')">
+                            Giruliai                        </li>
+                                            <li class="drop-down-value-row" data-value="47" data-search-string="kaunas" onclick="selectDropdownValue(this, 'Kaunas')">
+                            Kaunas                        </li>
+                                            <li class="drop-down-value-row" data-value="159" data-search-string="labrenciskes" onclick="selectDropdownValue(this, 'Labrenciškės')">
+                            Labrenciškės                        </li>
+                                            <li class="drop-down-value-row" data-value="66082" data-search-string="laukininkai" onclick="selectDropdownValue(this, 'Laukininkai')">
+                            Laukininkai                        </li>
+                                            <li class="drop-down-value-row" data-value="48" data-search-string="mazasis kaimelis" onclick="selectDropdownValue(this, 'Mažasis kaimelis')">
+                            Mažasis kaimelis                        </li>
+                                            <li class="drop-down-value-row" data-value="49" data-search-string="melnrage" onclick="selectDropdownValue(this, 'Melnragė')">
+                            Melnragė                        </li>
+                                            <li class="drop-down-value-row" data-value="50" data-search-string="miskas" onclick="selectDropdownValue(this, 'Miškas')">
+                            Miškas                        </li>
+                                            <li class="drop-down-value-row" data-value="51" data-search-string="mokykla" onclick="selectDropdownValue(this, 'Mokykla')">
+                            Mokykla                        </li>
+                                            <li class="drop-down-value-row" data-value="52" data-search-string="naujakiemis" onclick="selectDropdownValue(this, 'Naujakiemis')">
+                            Naujakiemis                        </li>
+                                            <li class="drop-down-value-row" data-value="53" data-search-string="paupiai" onclick="selectDropdownValue(this, 'Paupiai')">
+                            Paupiai                        </li>
+                                            <li class="drop-down-value-row" data-value="66085" data-search-string="plytine" onclick="selectDropdownValue(this, 'Plytinė')">
+                            Plytinė                        </li>
+                                            <li class="drop-down-value-row" data-value="66100" data-search-string="poilsis" onclick="selectDropdownValue(this, 'Poilsis')">
+                            Poilsis                        </li>
+                                            <li class="drop-down-value-row" data-value="54" data-search-string="rimkai" onclick="selectDropdownValue(this, 'Rimkai')">
+                            Rimkai                        </li>
+                                            <li class="drop-down-value-row" data-value="66083" data-search-string="rumpiskes" onclick="selectDropdownValue(this, 'Rumpiškės')">
+                            Rumpiškės                        </li>
+                                            <li class="drop-down-value-row" data-value="55" data-search-string="senamiestis" onclick="selectDropdownValue(this, 'Senamiestis')">
+                            Senamiestis                        </li>
+                                            <li class="drop-down-value-row" data-value="56" data-search-string="smelte" onclick="selectDropdownValue(this, 'Smeltė')">
+                            Smeltė                        </li>
+                                            <li class="drop-down-value-row" data-value="66099" data-search-string="smiltyne" onclick="selectDropdownValue(this, 'Smiltynė')">
+                            Smiltynė                        </li>
+                                            <li class="drop-down-value-row" data-value="60" data-search-string="sportininkai" onclick="selectDropdownValue(this, 'Sportininkai')">
+                            Sportininkai                        </li>
+                                            <li class="drop-down-value-row" data-value="66109" data-search-string="sauliai" onclick="selectDropdownValue(this, 'Šauliai')">
+                            Šauliai                        </li>
+                                            <li class="drop-down-value-row" data-value="158" data-search-string="tauralaukis" onclick="selectDropdownValue(this, 'Tauralaukis')">
+                            Tauralaukis                        </li>
+                                            <li class="drop-down-value-row" data-value="66084" data-search-string="trekas" onclick="selectDropdownValue(this, 'Trekas')">
+                            Trekas                        </li>
+                                            <li class="drop-down-value-row" data-value="66101" data-search-string="varpai" onclick="selectDropdownValue(this, 'Varpai')">
+                            Varpai                        </li>
+                                            <li class="drop-down-value-row" data-value="161" data-search-string="vetrunge" onclick="selectDropdownValue(this, 'Vėtrungė')">
+                            Vėtrungė                        </li>
+                                            <li class="drop-down-value-row" data-value="59" data-search-string="vingis" onclick="selectDropdownValue(this, 'Vingis')">
+                            Vingis                        </li>
+                                            <li class="drop-down-value-row" data-value="66081" data-search-string="zardininkai" onclick="selectDropdownValue(this, 'Žardininkai')">
+                            Žardininkai                        </li>
+                                            <li class="drop-down-value-row" data-value="61" data-search-string="zvejybos uostas" onclick="selectDropdownValue(this, 'Žvejybos uostas')">
+                            Žvejybos uostas                        </li>
+                                    </ul>
+                                <ul id="quartals_10" class="hide">
+                                            <li class="drop-down-value-row" data-value="162" onclick="selectDropdownValue(this, 'Centras')" data-search-string="centras">
+                    Centras                </li>
+                            <li class="drop-down-value-row" data-value="168" onclick="selectDropdownValue(this, 'Klaipėdos')" data-search-string="klaipedos">
+                    Klaipėdos                </li>
+                            <li class="drop-down-value-row" data-value="72" onclick="selectDropdownValue(this, 'Kniaudiškiai')" data-search-string="kniaudiskiai">
+                    Kniaudiškiai                </li>
+                            <li class="drop-down-value-row" data-value="163" onclick="selectDropdownValue(this, 'Molainiai')" data-search-string="molainiai">
+                    Molainiai                </li>
+                            <li class="drop-down-value-row" data-value="73" onclick="selectDropdownValue(this, 'Pilėnai')" data-search-string="pilenai">
+                    Pilėnai                </li>
+                            <li class="drop-down-value-row" data-value="169" onclick="selectDropdownValue(this, 'Pramonės')" data-search-string="pramones">
+                    Pramonės                </li>
+                            <li class="drop-down-value-row" data-value="74" onclick="selectDropdownValue(this, 'Rožės')" data-search-string="rozes">
+                    Rožės                </li>
+                            <li class="drop-down-value-row" data-value="75" onclick="selectDropdownValue(this, 'Skaistakalnis')" data-search-string="skaistakalnis">
+                    Skaistakalnis                </li>
+                            <li class="drop-down-value-row" data-value="164" onclick="selectDropdownValue(this, 'Stetiškiai')" data-search-string="stetiskiai">
+                    Stetiškiai                </li>
+                            <li class="drop-down-value-row" data-value="76" onclick="selectDropdownValue(this, 'Tulpės')" data-search-string="tulpes">
+                    Tulpės                </li>
+                            <li class="drop-down-value-row" data-value="165" onclick="selectDropdownValue(this, 'Vaivados')" data-search-string="vaivados">
+                    Vaivados                </li>
+                            <li class="drop-down-value-row" data-value="77" onclick="selectDropdownValue(this, 'Žemaičiai')" data-search-string="zemaiciai">
+                    Žemaičiai                </li>
+                        </ul>
+</span><!--
+        -->        <span class="error-arrow hide">Error</span>
+</li>

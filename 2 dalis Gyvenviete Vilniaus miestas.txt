@@ -1,0 +1,32 @@
+<li id="districtField" class="required-form-field">
+    <label class="form-field-input-label form-label-multiline">
+        <span>Gyvenvietė</span>
+    </label><span class="input-width-wide input-style-dropdown" id="district">
+            <input name="FDistrict" class="dropdown-input-value" type="hidden" id="districtValue" value="1">
+        <input onclick="openDropdownDistrict(event, this)" class="dropdown-input-value-title" type="text" readonly="" id="districtTitle"><span onclick="openDropdownDistrict(event, this)" class="input-right-dropdown"></span>
+        <ul class="hide" id="districtLoading">
+            <li class="manual-value-row">
+                <span class="manual-value-title">Įrašykite gyvenvietę:</span><br>
+                <input type="text" readonly="">
+            </li>
+            <li><img src="https://static.aruodas.lt/static/img/indicator.gif" alt=""></li>
+        </ul>
+                                    <ul id="districts_461" class="dropdown-input-values-address">
+                                                                <li class="drop-down-value-row selected-dropdown-elem" data-value="1" data-search-string="vilniaus" onclick="selectDropdownValueDistrict(this, 'Vilniaus m.')">
+                            Vilniaus m.                        </li>
+                                            <li class="drop-down-value-row" data-value="16387" data-search-string="neravu" onclick="selectDropdownValueDistrict(this, 'Neravų k.')">
+                            Neravų k.                        </li>
+                                            <li class="drop-down-value-row" data-value="16397" data-search-string="salu" onclick="selectDropdownValueDistrict(this, 'Salų k.')">
+                            Salų k.                        </li>
+                                    </ul>
+                            <ul id="districts_43" class="hide">
+                                                                <li class="drop-down-value-row" data-value="6" data-search-string="kauno" onclick="selectDropdownValueDistrict(this, 'Kauno m.')">
+                            Kauno m.                        </li>
+                                    </ul>
+                            <ul id="districts_112" class="hide">
+                                                                <li class="drop-down-value-row" data-value="7" data-search-string="klaipedos" onclick="selectDropdownValueDistrict(this, 'Klaipėdos m.')">
+                            Klaipėdos m.                        </li>
+                                    </ul>
+                            </span><!--
+        -->        <span class="error-arrow hide">Error</span>
+</li>

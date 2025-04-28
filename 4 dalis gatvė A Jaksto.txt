@@ -1,0 +1,17 @@
+<li id="streetField" class="">
+    <label class="form-field-input-label">
+        Gatvė    </label><span class="input-width-wide input-style-dropdown">
+            <input name="FStreet" class="dropdown-input-value" type="hidden" id="streetValue" value="21862">
+        <input onclick="openDropdownStreet(event, this)" class="dropdown-input-value-title" type="text" readonly="" id="streetTitle"><span id="removeStreetSelection" class="icon-remove-selection"></span><span onclick="openDropdownStreet(event, this)" class="input-right-dropdown"></span>
+        <ul class="hide" id="streetLoading">
+            <li class="manual-value-row">
+                <span class="manual-value-title">Įrašykite gatvę<br>(pvz., kreves):</span><br>
+                <input type="text" readonly="">
+            </li>
+            <li><img src="https://static.aruodas.lt/static/img/indicator.gif" alt=""></li>
+        </ul>
+                                    <ul id="streets_1" class="dropdown-input-values-address">
+                                        <li class="manual-value-row">
+                        <span class="manual-value-title">Įrašykite gatvę<br>(pvz., kreves):</span><br>
+                        <input onclick="stopClick(event)" class="dropdown-input-search-value" onkeyup="findStreetQueue(event, this, 'streets_1', 'streetLoading');" type="text">
+<li class="drop-down-value-row" data-value="21862" data-search-string="a jaksto g" onclick="selectDropdownValue(this, 'A. Jakšto g.')">

@@ -1,0 +1,42 @@
+<li class="">
+    <label class="form-field-input-label">
+        <span>Jūs esate:</span>
+    </label><!--
+    --><div class="input-buttons-wrapper " data-editable="1" data-key="AccountType" bis_skin_checked="1">
+        <input type="hidden" value="" name="account_type">
+                                    <div class="input-button" data-value="1" data-selected="0" data-title="Privatus asmuo" onclick="changeInputButtonsValue(this, 'AccountType')" bis_skin_checked="1">
+                    <div class="input-button-ghost" bis_skin_checked="1">
+                        Privatus asmuo                    </div>
+                    <div class="input-button-text" bis_skin_checked="1">
+                        Privatus asmuo                    </div>
+                </div>
+                                                <div class="input-button" data-value="2" data-selected="0" data-title="Tarpininkas" onclick="changeInputButtonsValue(this, 'AccountType')" bis_skin_checked="1">
+                    <div class="input-button-ghost" bis_skin_checked="1">
+                        Tarpininkas                    </div>
+                    <div class="input-button-text" bis_skin_checked="1">
+                        Tarpininkas                    </div>
+                </div>
+                                                <div class="input-button" data-value="3" data-selected="0" data-title="Vystytojas/statytojas" onclick="changeInputButtonsValue(this, 'AccountType')" bis_skin_checked="1">
+                    <div class="input-button-ghost" bis_skin_checked="1">
+                        Vystytojas/statytojas                    </div>
+                    <div class="input-button-text" bis_skin_checked="1">
+                        Vystytojas/statytojas                    </div>
+                </div>
+                                                <div class="input-button" data-value="4" data-selected="0" data-title="Kitas verslo subjektas" onclick="changeInputButtonsValue(this, 'AccountType')" bis_skin_checked="1">
+                    <div class="input-button-ghost" bis_skin_checked="1">
+                        Kitas verslo subjektas                    </div>
+                    <div class="input-button-text" bis_skin_checked="1">
+                        Kitas verslo subjektas                    </div>
+                </div>
+                        </div>
+    <div class="tooltip-block" bis_skin_checked="1">
+        <img src="https://static.aruodas.lt/static/svg/info_mob.svg">
+        <div class="tooltip" bis_skin_checked="1">
+            <b>Privatus asmuo</b><br>Asmuo, kuris ieško arba parduoda/nuomoja savo ar artimųjų turtą<br><b>Tarpininkas</b><br>Pardavimo arba nuomos tarpininkas (brokeris)<br><b>Vystytojas / statytojas</b><br>Nekilnojamojo turto vystytojas arba statytojas ar jų atstovas<br><b>Kitas verslo subjektas</b><br>Bet koks kitas asmuo ar įmonė, kurių veikla apibūdinama kaip verslas        </div>
+    </div>
+    <span class="error-arrow hide">Error</span>
+
+
+<div class="input-button-text" bis_skin_checked="1">
+                        Privatus asmuo                    </div>
+</li>

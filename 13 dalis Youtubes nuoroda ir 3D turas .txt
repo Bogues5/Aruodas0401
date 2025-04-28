@@ -1,0 +1,18 @@
+<li class="">
+    <label class="form-field-input-label">
+        <span>Youtube nuoroda</span>
+    </label><span class="input-style-text input-width-extra-wide">
+                            <input name="Video" type="text" placeholder="Įrašykite embed kodą arba nuorodą" onchange="onYoutubeChange(this)" autocomplete="off">
+                    </span>
+    <span class="input-icon video"></span>
+    <span class="error-arrow hide"></span>
+</li>
+
+<li class=" ">
+    <label class="form-field-input-label">
+        <span>3D turas</span>
+    </label><span class="input-style-text input-width-extra-wide">
+                    <input name="tour_3d" type="text" autocomplete="off" placeholder="Įrašykite 3D nuorodą" onchange="onTour3DChange(event)">
+                </span>
+        <span class="input-icon tour3d"></span>
+    <span class="error-arrow tour-3d-error-arrow hide"></span></li>

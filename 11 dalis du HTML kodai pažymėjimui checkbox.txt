@@ -1,0 +1,25 @@
+<li class="field-extra-row">
+    <label class="form-field-input-label"></label><div class="form-field-input-container" bis_skin_checked="1">
+        <div class="input-style-checkbox input-style-checkbox-single" bis_skin_checked="1">
+            <input type="hidden" name="InterestedChange" value="N">
+            <div bis_skin_checked="1"><input id="cbInterestedChange" type="checkbox" name="InterestedChange" value="Y">
+            <label for="cbInterestedChange">
+                <span></span>
+                Domina keitimas            </label></div>
+        </div>
+    </div>
+</li>
+
+
+<li class="field-extra-row">
+    <label class="form-field-input-label"></label><div class="form-field-input-container" bis_skin_checked="1">
+        <div class="input-style-checkbox input-style-checkbox-single" bis_skin_checked="1">
+            <input type="hidden" name="auction" value="0">
+            <div bis_skin_checked="1"><input id="cbAuction" type="checkbox" name="auction" value="1">
+                                    <label for="cbAuction">
+                        <span></span>
+                        Varžytynės/aukcionas                    </label>
+                            </div>
+        </div>
+    </div>
+</li>

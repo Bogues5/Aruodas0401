@@ -1,0 +1,47 @@
+<li class="required-form-field ">
+    <label class="form-field-input-label">
+        <span>Paskirtis</span><br>
+        <span class="error-arrow hide">Error</span>
+    </label><div class="input-style-checkbox" bis_skin_checked="1"><input type="hidden" name="FIntendance[]" value="0"><!--
+                                    <!-- --><div bis_skin_checked="1"><input id="cb_FIntendance_property" type="checkbox" name="FIntendance[]" value="property" data-title="Namų valda">
+                <label for="cb_FIntendance_property">
+                    <span></span>
+                    Namų valda                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_FIntendance_manufacturingland" type="checkbox" name="FIntendance[]" value="manufacturingland" data-title="Daugiabučių statyba">
+                <label for="cb_FIntendance_manufacturingland">
+                    <span></span>
+                    Daugiabučių statyba                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_FIntendance_farm" type="checkbox" name="FIntendance[]" value="farm" data-title="Žemės ūkio">
+                <label for="cb_FIntendance_farm">
+                    <span></span>
+                    Žemės ūkio                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_FIntendance_garden" type="checkbox" name="FIntendance[]" value="garden" data-title="Sklypas soduose">
+                <label for="cb_FIntendance_garden">
+                    <span></span>
+                    Sklypas soduose                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_FIntendance_forest" type="checkbox" name="FIntendance[]" value="forest" data-title="Miškų ūkio">
+                <label for="cb_FIntendance_forest">
+                    <span></span>
+                    Miškų ūkio                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_FIntendance_factory" type="checkbox" name="FIntendance[]" value="factory" data-title="Pramonės">
+                <label for="cb_FIntendance_factory">
+                    <span></span>
+                    Pramonės                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_FIntendance_storage" type="checkbox" name="FIntendance[]" value="storage" data-title="Sandėliavimo">
+                <label for="cb_FIntendance_storage">
+                    <span></span>
+                    Sandėliavimo                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_FIntendance_comm" type="checkbox" name="FIntendance[]" value="comm" data-title="Komercinė">
+                <label for="cb_FIntendance_comm">
+                    <span></span>
+                    Komercinė                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_FIntendance_recr" type="checkbox" name="FIntendance[]" value="recr" data-title="Rekreacinė">
+                <label for="cb_FIntendance_recr">
+                    <span></span>
+                    Rekreacinė                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_FIntendance_none" type="checkbox" name="FIntendance[]" value="none" data-title="Kita">
+                <label for="cb_FIntendance_none">
+                    <span></span>
+                    Kita                </label></div><!--
+                        <!-- --></div>
+</li>

@@ -1,0 +1,43 @@
+<li class="field-extra-row">
+    <label class="form-field-input-label">
+        <span>Ypatybės</span><br>
+        <span class="error-arrow hide">Error</span>
+    </label><div class="input-style-checkbox" bis_skin_checked="1"><input type="hidden" name="Special[]" value="0"><!--
+                                    <!-- --><div bis_skin_checked="1"><input id="cb_SpecialLot_1" type="checkbox" name="Special[]" value="1" data-title="Elektra">
+                <label for="cb_SpecialLot_1">
+                    <span></span>
+                    Elektra                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_SpecialLot_2" type="checkbox" name="Special[]" value="2" data-title="Dujos">
+                <label for="cb_SpecialLot_2">
+                    <span></span>
+                    Dujos                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_SpecialLot_3" type="checkbox" name="Special[]" value="3" data-title="Vanduo">
+                <label for="cb_SpecialLot_3">
+                    <span></span>
+                    Vanduo                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_SpecialLot_4" type="checkbox" name="Special[]" value="4" data-title="Kraštinis sklypas">
+                <label for="cb_SpecialLot_4">
+                    <span></span>
+                    Kraštinis sklypas                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_SpecialLot_5" type="checkbox" name="Special[]" value="5" data-title="Greta miško">
+                <label for="cb_SpecialLot_5">
+                    <span></span>
+                    Greta miško                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_SpecialLot_6" type="checkbox" name="Special[]" value="6" data-title="Be pastatų">
+                <label for="cb_SpecialLot_6">
+                    <span></span>
+                    Be pastatų                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_SpecialLot_7" type="checkbox" name="Special[]" value="7" data-title="Geodeziniai matavimai">
+                <label for="cb_SpecialLot_7">
+                    <span></span>
+                    Geodeziniai matavimai                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_SpecialLot_11" type="checkbox" name="Special[]" value="11" data-title="Su pakrante">
+                <label for="cb_SpecialLot_11">
+                    <span></span>
+                    Su pakrante                </label></div><!--
+                                                <!-- --><div bis_skin_checked="1"><input id="cb_SpecialLot_501" type="checkbox" name="Special[]" value="501" data-title="Asfaltuotas privažiavimas">
+                <label for="cb_SpecialLot_501">
+                    <span></span>
+                    Asfaltuotas privažiavimas                </label></div><!--
+                        <!-- --></div>
+</li>

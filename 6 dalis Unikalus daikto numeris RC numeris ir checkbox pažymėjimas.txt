@@ -1,0 +1,19 @@
+<li class="form-field-extra-margin">
+    <label class="form-field-input-label">
+        <span>Unikalus daikto numeris <span class="nowrap">(RC numeris)</span></span>
+    </label><!--
+     --><!--
+    --><div class="
+                input-style-text
+                input-style-rc-number
+                            " bis_skin_checked="1">
+            <input name="RCNumber" type="text" value="" oninput="handleRCNumberInput(event)" onchange="handleRCNumberChange(event)" placeholder="xxxx-xxxx-xxxx">
+     </div>
+    <div class="input-style-checkbox input-style-checkbox-extra" bis_skin_checked="1">
+        <div bis_skin_checked="1"><input type="hidden" name="show_rc_number" value="0"><input id="cbshow_rc_number" type="checkbox" name="show_rc_number" value="1" checked="">
+            <label for="cbshow_rc_number">
+                <span></span>
+                Rodyti            </label></div>
+    </div>
+    <span class="error-arrow hide">Neteisingas numerio formatas</span>
+</li>

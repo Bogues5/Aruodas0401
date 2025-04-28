@@ -1,0 +1,143 @@
+<li class="required-form-field ">
+    <label class="form-field-input-label">
+        Savivaldybė    </label><span class="input-width-wide input-style-dropdown">
+        <input name="FRegion" class="dropdown-input-value" type="hidden" id="regionValue">
+        <input onclick="openDropdown(event, this)" class="dropdown-input-value-title" type="text" readonly="" value="Pasirinkite"><span onclick="openDropdown(event, this)" class="input-right-dropdown"></span>
+        <ul class="hide" id="regionLoading">
+            <li class="manual-value-row">
+                <span class="manual-value-title">Įveskite savivaldybę:</span><br>
+                <input type="text" readonly="">
+            </li>
+            <li><img src="https://static.aruodas.lt/static/img/indicator.gif" alt=""></li>
+        </ul>
+        <ul class="dropdown-input-values-address" id="regionDropdown">
+            <li class="manual-value-row">
+                <span class="manual-value-title">Įveskite savivaldybę:</span><br>
+                <input onclick="stopClick(event)" class="dropdown-input-search-value" onkeyup="findDistrictQueue(this, 'regionDropdown', 'regionLoading');" type="text">
+            </li>
+                                                <li class="drop-down-value-row dropdown-option-priority-h selected-dropdown-elem" data-value="461" data-search-string="vilnius" onclick="selectDropdownValueRegion(this, 'Vilnius')" data-district-id="1" data-district-title="Vilniaus m.">
+                        Vilnius                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-h" data-value="43" data-search-string="kaunas" onclick="selectDropdownValueRegion(this, 'Kaunas')" data-district-id="6" data-district-title="Kauno m.">
+                        Kaunas                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-h" data-value="112" data-search-string="klaipeda" onclick="selectDropdownValueRegion(this, 'Klaipėda')" data-district-id="7" data-district-title="Klaipėdos m.">
+                        Klaipėda                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-m" data-value="259" data-search-string="siauliai" onclick="selectDropdownValueRegion(this, 'Šiauliai')" data-district-id="11" data-district-title="Šiaulių m.">
+                        Šiauliai                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-m" data-value="205" data-search-string="panevezys" onclick="selectDropdownValueRegion(this, 'Panevėžys')" data-district-id="10" data-district-title="Panevėžio m.">
+                        Panevėžys                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-m" data-value="2" data-search-string="alytus" onclick="selectDropdownValueRegion(this, 'Alytus')" data-district-id="2" data-district-title="Alytaus m.">
+                        Alytus                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-m" data-value="114" data-search-string="palanga" onclick="selectDropdownValueRegion(this, 'Palanga')" data-district-id="9" data-district-title="Palangos m.">
+                        Palanga                    </li>
+                                                                <li data-value="-">
+                                            </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="260" data-search-string="akmenes" onclick="selectDropdownValueRegion(this, 'Akmenės r.')">
+                        Akmenės r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="4" data-search-string="alytaus" onclick="selectDropdownValueRegion(this, 'Alytaus r.')">
+                        Alytaus r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="393" data-search-string="anyksciu" onclick="selectDropdownValueRegion(this, 'Anykščių r.')">
+                        Anykščių r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="42" data-search-string="birstono sav." onclick="selectDropdownValueRegion(this, 'Birštono sav.')">
+                        Birštono sav.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="206" data-search-string="birzu" onclick="selectDropdownValueRegion(this, 'Biržų r.')">
+                        Biržų r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="3" data-search-string="druskininku sav." onclick="selectDropdownValueRegion(this, 'Druskininkų sav.')">
+                        Druskininkų sav.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="1191" data-search-string="elektrenu sav." onclick="selectDropdownValueRegion(this, 'Elektrėnų sav.')">
+                        Elektrėnų sav.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="413" data-search-string="ignalinos" onclick="selectDropdownValueRegion(this, 'Ignalinos r.')">
+                        Ignalinos r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="44" data-search-string="jonavos" onclick="selectDropdownValueRegion(this, 'Jonavos r.')">
+                        Jonavos r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="267" data-search-string="joniskio" onclick="selectDropdownValueRegion(this, 'Joniškio r.')">
+                        Joniškio r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="346" data-search-string="jurbarko" onclick="selectDropdownValueRegion(this, 'Jurbarko r.')">
+                        Jurbarko r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="53" data-search-string="kaisiadoriu" onclick="selectDropdownValueRegion(this, 'Kaišiadorių r.')">
+                        Kaišiadorių r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="1192" data-search-string="kalvarijos sav." onclick="selectDropdownValueRegion(this, 'Kalvarijos sav.')">
+                        Kalvarijos sav.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="63" data-search-string="kauno" onclick="selectDropdownValueRegion(this, 'Kauno r.')">
+                        Kauno r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="1193" data-search-string="kazlu rudos sav." onclick="selectDropdownValueRegion(this, 'Kazlų Rūdos sav.')">
+                        Kazlų Rūdos sav.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="215" data-search-string="kedainiu" onclick="selectDropdownValueRegion(this, 'Kėdainių r.')">
+                        Kėdainių r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="278" data-search-string="kelmes" onclick="selectDropdownValueRegion(this, 'Kelmės r.')">
+                        Kelmės r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="115" data-search-string="klaipedos" onclick="selectDropdownValueRegion(this, 'Klaipėdos r.')">
+                        Klaipėdos r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="127" data-search-string="kretingos" onclick="selectDropdownValueRegion(this, 'Kretingos r.')">
+                        Kretingos r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="228" data-search-string="kupiskio" onclick="selectDropdownValueRegion(this, 'Kupiškio r.')">
+                        Kupiškio r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="27" data-search-string="lazdiju" onclick="selectDropdownValueRegion(this, 'Lazdijų r.')">
+                        Lazdijų r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="162" data-search-string="marijampoles sav." onclick="selectDropdownValueRegion(this, 'Marijampolės sav.')">
+                        Marijampolės sav.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="359" data-search-string="mazeikiu" onclick="selectDropdownValueRegion(this, 'Mažeikių r.')">
+                        Mažeikių r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="426" data-search-string="moletu" onclick="selectDropdownValueRegion(this, 'Molėtų r.')">
+                        Molėtų r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="113" data-search-string="neringos sav." onclick="selectDropdownValueRegion(this, 'Neringos sav.')">
+                        Neringos sav.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="1196" data-search-string="pagegiu sav." onclick="selectDropdownValueRegion(this, 'Pagėgių sav.')">
+                        Pagėgių sav.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="289" data-search-string="pakruojo" onclick="selectDropdownValueRegion(this, 'Pakruojo r.')">
+                        Pakruojo r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="235" data-search-string="panevezio" onclick="selectDropdownValueRegion(this, 'Panevėžio r.')">
+                        Panevėžio r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="247" data-search-string="pasvalio" onclick="selectDropdownValueRegion(this, 'Pasvalio r.')">
+                        Pasvalio r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="367" data-search-string="plunges" onclick="selectDropdownValueRegion(this, 'Plungės r.')">
+                        Plungės r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="86" data-search-string="prienu" onclick="selectDropdownValueRegion(this, 'Prienų r.')">
+                        Prienų r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="298" data-search-string="radviliskio" onclick="selectDropdownValueRegion(this, 'Radviliškio r.')">
+                        Radviliškio r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="98" data-search-string="raseiniu" onclick="selectDropdownValueRegion(this, 'Raseinių r.')">
+                        Raseinių r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="1197" data-search-string="rietavo sav." onclick="selectDropdownValueRegion(this, 'Rietavo sav.')">
+                        Rietavo sav.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="438" data-search-string="rokiskio" onclick="selectDropdownValueRegion(this, 'Rokiškio r.')">
+                        Rokiškio r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="136" data-search-string="skuodo" onclick="selectDropdownValueRegion(this, 'Skuodo r.')">
+                        Skuodo r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="187" data-search-string="sakiu" onclick="selectDropdownValueRegion(this, 'Šakių r.')">
+                        Šakių r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="513" data-search-string="salcininku" onclick="selectDropdownValueRegion(this, 'Šalčininkų r.')">
+                        Šalčininkų r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="311" data-search-string="siauliu" onclick="selectDropdownValueRegion(this, 'Šiaulių r.')">
+                        Šiaulių r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="332" data-search-string="silales" onclick="selectDropdownValueRegion(this, 'Šilalės r.')">
+                        Šilalės r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="146" data-search-string="silutes" onclick="selectDropdownValueRegion(this, 'Šilutės r.')">
+                        Šilutės r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="539" data-search-string="sirvintu" onclick="selectDropdownValueRegion(this, 'Širvintų r.')">
+                        Širvintų r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="526" data-search-string="svencioniu" onclick="selectDropdownValueRegion(this, 'Švenčionių r.')">
+                        Švenčionių r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="323" data-search-string="taurages" onclick="selectDropdownValueRegion(this, 'Tauragės r.')">
+                        Tauragės r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="381" data-search-string="telsiu" onclick="selectDropdownValueRegion(this, 'Telšių r.')">
+                        Telšių r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="487" data-search-string="traku" onclick="selectDropdownValueRegion(this, 'Trakų r.')">
+                        Trakų r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="501" data-search-string="ukmerges" onclick="selectDropdownValueRegion(this, 'Ukmergės r.')">
+                        Ukmergės r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="449" data-search-string="utenos" onclick="selectDropdownValueRegion(this, 'Utenos r.')">
+                        Utenos r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="16" data-search-string="varenos" onclick="selectDropdownValueRegion(this, 'Varėnos r.')">
+                        Varėnos r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="163" data-search-string="vilkaviskio" onclick="selectDropdownValueRegion(this, 'Vilkaviškio r.')">
+                        Vilkaviškio r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="462" data-search-string="vilniaus" onclick="selectDropdownValueRegion(this, 'Vilniaus r.')">
+                        Vilniaus r.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="459" data-search-string="visagino sav." onclick="selectDropdownValueRegion(this, 'Visagino sav.')">
+                        Visagino sav.                    </li>
+                                                                <li class="drop-down-value-row dropdown-option-priority-l" data-value="403" data-search-string="zarasu" onclick="selectDropdownValueRegion(this, 'Zarasų r.')">
+                        Zarasų r.                    </li>
+                                    </ul>
+    </span><!--
+    -->    <span class="error-arrow hide">Error</span>
+</li>

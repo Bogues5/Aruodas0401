@@ -1,0 +1,6 @@
+<li class="field-extra-row-closed">
+    <label class="form-field-input-label"></label><span class="input-style-change-object"><a id="showMoreFields" href="#daugiau" class="bigObjBtn"><img class="img-doc" src="https://static.aruodas.lt/static/svg/new_object/icon_objekto-ypatumai.svg">
+             <span>Žymėti ypatumus</span>
+        </a>
+    </span>
+</li>

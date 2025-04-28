@@ -1,0 +1,11 @@
+<li>
+            <label class="form-field-input-label"></label><span class="form-field-info-message">
+                <div class="input-style-checkbox input-style-checkbox-single" bis_skin_checked="1">
+                <div bis_skin_checked="1"><input id="cbagree_to_rules" type="checkbox" name="agree_to_rules" value="1">
+                            <label for="cbagree_to_rules">
+                                <span></span>
+                                Sutinku su <a class="hu" href="/dalyvio-taisykles/" target="_blank">portalo taisyklėmis</a>                            </label></div>
+                </div>
+            </span>
+            <span class="error-arrow hide">Prašome sutikti su portalo taisyklėmis</span>
+        </li>

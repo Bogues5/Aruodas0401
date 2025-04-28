@@ -1,0 +1,51 @@
+<li class="
+    field-interval-row
+    required-form-field
+            input-style-text-unit-with-priceperfield
+        ">
+            <label id="priceLabel" class="form-field-input-label">
+                <span>                        Viso sklypo kaina                    </span>
+        </label><span class="input-interval-value hide">nuo            </span><span class="input-style-text-unit input-width-wide">
+                                    <input id="priceField" class="dropdown-input-value" autocomplete="off" onkeyup="checkInputIntValue(this);" type="text" name="price"><span class="input-right-unit">€</span>
+                            </span><span class="error-arrow hide"></span>
+                    <span class="price-per-field" id="pricePerField"></span>
+            <span class="price-per-field2 hide" id="pricePerField2"></span>
+            
+    </li>
+	
+	<li class="required-form-field">
+            <label class="form-field-input-label">
+                Telefono Nr.            </label><span class="input-style-phone input-width-wide">
+                <input onkeyup="checkInputPhone(event);" autocomplete="off" name="phone" type="text" value="+370">
+            </span><span class="error-arrow hide">Error</span>
+                            <div class="vnum__explanation regular" bis_skin_checked="1">
+                </div>
+                    </li>
+					
+					<li class="required-form-field">
+                <label class="form-field-input-label">
+                    El. paštas                </label><span class="input-style-text input-width-wide">
+                    <input onchange="checkInputEmail(this);" onfocus="hideError(this)" name="email" type="email" placeholder="Skelbimo redagavimui" value="">
+                </span><div class="info-text-small" bis_skin_checked="1">El.pašto adresas nebus rodomas viešai.</div>
+                <span class="error-arrow hide">Error</span>
+            </li>
+			
+			<li>
+                <label class="form-field-input-label">
+                </label><span class="input-style-checkbox input-style-checkbox-single"><input id="cbdont_show_in_ads" type="checkbox" name="dont_show_in_ads">
+                    <label for="cbdont_show_in_ads">
+                        <span></span>
+                        Išjungti kontaktavimo el. paštu funkciją skelbime                    </label>
+                </span>
+            </li>
+			
+			<li>
+            <label class="form-field-input-label"></label><div class="form-field-input-container" bis_skin_checked="1">
+                <div class="input-style-checkbox input-style-checkbox-single" bis_skin_checked="1">
+                    <div bis_skin_checked="1"><input id="cbdont_want_chat" type="checkbox" name="dont_want_chat" value="1">
+                        <label for="cbdont_want_chat">
+                            <span></span>
+                            Išjungti pokalbių (<i>„chat“</i>) funkciją skelbime                        </label></div>
+                </div>
+            </div>
+        </li>
