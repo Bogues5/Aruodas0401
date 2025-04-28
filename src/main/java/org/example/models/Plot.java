@@ -1,37 +1,5 @@
-/* Aprašymas: Kodo logika, struktūra ir paaiškinimai
-Plot.java
- PASKIRTIS:
-Ši klasė skirta automatizuotai užpildyti sklypo skelbimo formą tinklalapyje, naudojant Selenium WebDriver.
-Visi kintamieji ir metodai yra public.
 
-STRUKTŪRA IR KINTAMIEJI
-WebDriver driver ir WebDriverWait wait – naudojami naršyklės valdymui ir laukimui, kol elementai bus pasiekiami.
-Adreso laukai: regionCode, regionName, districtCode, districtName, quartalCode, quartalName, streetCode, streetName, houseNumber, checkboxSelected.
-RC numerio laukai: rcNumber, rcCheckboxSelected.
-Ploto ir paskirties laukai: area, purposes, showAttributes, specialFeatures.
-Papildomi nustatymai: interestedChange, auction.
-Aprašymai: notesLt, notesEn, notesRu.
-Media: video, tour3d.
-Kontaktinė informacija: price, phone, email, dontShowInAds, dontWantChat.
-Vartotojo tipas ir taisyklės: accountType, agreeToRules.
-Konstruktoriai:
-Tuščias konstruktorius (public Plot()) – leidžia sukurti objektą be inicializacijos.
-Pilnas konstruktorius – priima visus kintamuosius ir inicializuoja objektą, taip pat nustato wait ir išvalo rcNumber.
-Metodai:
-sanitizeRcNumber: Pašalina ne skaitmeninius simbolius iš RC numerio.
-fill: Pagrindinis metodas, kuris kviečia kitus metodus formos užpildymui.
-fillRegion, fillDistrict, fillQuartal, fillStreet: Užpildo dropdown tipo laukus (regioną, rajoną, kvartalą, gatvę).
-fillTextField: Užpildo tekstinius laukus pagal pavadinimą.
-setCheckbox (dvi versijos): Nustato checkbox būseną pagal boolean reikšmę arba pagal reikšmę (value).
-selectRadio: Pasirenka radio mygtuką pagal pavadinimą ir reikšmę.
-Logika:
-
-Forma užpildoma nuosekliai: pirmiausia adresas (dropdown'ai), tada tekstiniai laukai, checkbox'ai ir radio mygtukai.
-Naudojamas WebDriverWait, kad būtų užtikrinta, jog elementai yra pasiekiami prieš juos užpildant.
-Checkbox'ai ir radio mygtukai valdomi pagal pateiktas boolean reikšmes arba specifines reikšmes (pvz., "Y", "1").*/
-
-
-
+/*
 package org.example.models;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -189,6 +157,287 @@ public class Plot {
     }
 
 }
+ */
 
 
+/* Aprašymas: Kodo logika, struktūra ir paaiškinimai
+Plot.java
+ PASKIRTIS:
+Ši klasė skirta automatizuotai užpildyti sklypo skelbimo formą tinklalapyje, naudojant Selenium WebDriver.
+Visi kintamieji ir metodai yra public.
+
+STRUKTŪRA IR KINTAMIEJI
+WebDriver driver ir WebDriverWait wait – naudojami naršyklės valdymui ir laukimui, kol elementai bus pasiekiami.
+Adreso laukai: regionCode, regionName, districtCode, districtName, quartalCode, quartalName, streetCode, streetName, houseNumber, checkboxSelected.
+RC numerio laukai: rcNumber, rcCheckboxSelected.
+Ploto ir paskirties laukai: area, purposes, showAttributes, specialFeatures.
+Papildomi nustatymai: interestedChange, auction.
+Aprašymai: notesLt, notesEn, notesRu.
+Media: video, tour3d.
+Kontaktinė informacija: price, phone, email, dontShowInAds, dontWantChat.
+Vartotojo tipas ir taisyklės: accountType, agreeToRules.
+Konstruktoriai:
+Tuščias konstruktorius (public Plot()) – leidžia sukurti objektą be inicializacijos.
+Pilnas konstruktorius – priima visus kintamuosius ir inicializuoja objektą, taip pat nustato wait ir išvalo rcNumber.
+Metodai:
+sanitizeRcNumber: Pašalina ne skaitmeninius simbolius iš RC numerio.
+fill: Pagrindinis metodas, kuris kviečia kitus metodus formos užpildymui.
+fillRegion, fillDistrict, fillQuartal, fillStreet: Užpildo dropdown tipo laukus (regioną, rajoną, kvartalą, gatvę).
+fillTextField: Užpildo tekstinius laukus pagal pavadinimą.
+setCheckbox (dvi versijos): Nustato checkbox būseną pagal boolean reikšmę arba pagal reikšmę (value).
+selectRadio: Pasirenka radio mygtuką pagal pavadinimą ir reikšmę.
+Logika:
+
+Forma užpildoma nuosekliai: pirmiausia adresas (dropdown'ai), tada tekstiniai laukai, checkbox'ai ir radio mygtukai.
+Naudojamas WebDriverWait, kad būtų užtikrinta, jog elementai yra pasiekiami prieš juos užpildant.
+Checkbox'ai ir radio mygtukai valdomi pagal pateiktas boolean reikšmes arba specifines reikšmes (pvz., "Y", "1").*/
+
+
+
+package org.example.models;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+import java.util.List;
+
+public class Plot {
+    public WebDriver driver;
+    public WebDriverWait wait;
+
+    // Regiono ir adreso susiję laukai
+    public int regionCode;
+    public String regionName;
+    public int districtCode;
+    public String districtName;
+    public int quartalCode;
+    public String quartalName;
+    public int streetCode;
+    public String streetName;
+    public int houseNumber;
+    public boolean checkboxSelected;
+
+    // RC numerio laukai
+    public String rcNumber;
+    public boolean rcCheckboxSelected;
+
+    // Ploto ir paskirties laukai
+    public double area;
+    public List<String> purposes;
+    public boolean showAttributes;
+    public List<Integer> specialFeatures;
+
+    // Papildomi nustatymai
+    public boolean interestedChange;
+    public boolean auction;
+
+    // Aprašymo laukai įvairiomis kalbomis
+    public String notesLt;
+    public String notesEn;
+    public String notesRu;
+
+    // Media nuorodos
+    public String video;
+    public String tour3d;
+
+    // Kontaktinė informacija ir kaina
+    public int price;
+    public String phone;
+    public String email;
+
+    // Papildomi kontaktų nustatymai
+    public boolean dontShowInAds;
+    public boolean dontWantChat;
+
+    // Vartotojo tipo ir taisyklių sutikimo laukai
+    public int accountType;
+    public boolean agreeToRules;
+
+    public Plot() {
+    }
+
+    public Plot(WebDriver driver,
+                int regionCode, String regionName,
+                int districtCode, String districtName,
+                int quartalCode, String quartalName,
+                int streetCode, String streetName,
+                int houseNumber, boolean checkboxSelected,
+                String rcNumber, boolean rcCheckboxSelected,
+                double area, List<String> purposes,
+                boolean showAttributes, List<Integer> specialFeatures,
+                boolean interestedChange, boolean auction,
+                String notesLt, String notesEn, String notesRu,
+                String video, String tour3d,
+                int price, String phone, String email,
+                boolean dontShowInAds, boolean dontWantChat,
+                int accountType, boolean agreeToRules) {
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.driver = driver;
+        this.regionCode = regionCode;
+        this.regionName = regionName;
+        this.districtCode = districtCode;
+        this.districtName = districtName;
+        this.quartalCode = quartalCode;
+        this.quartalName = quartalName;
+        this.streetCode = streetCode;
+        this.streetName = streetName;
+        this.houseNumber = houseNumber;
+        this.checkboxSelected = checkboxSelected;
+        this.rcNumber = sanitizeRcNumber(rcNumber);
+        this.rcCheckboxSelected = rcCheckboxSelected;
+        this.area = area;
+        this.purposes = purposes;
+        this.showAttributes = showAttributes;
+        this.specialFeatures = specialFeatures;
+        this.interestedChange = interestedChange;
+        this.auction = auction;
+        this.notesLt = notesLt;
+        this.notesEn = notesEn;
+        this.notesRu = notesRu;
+        this.video = video;
+        this.tour3d = tour3d;
+        this.price = price;
+        this.phone = phone;
+        this.email = email;
+        this.dontShowInAds = dontShowInAds;
+        this.dontWantChat = dontWantChat;
+        this.accountType = accountType;
+        this.agreeToRules = agreeToRules;
+    }
+
+    public String sanitizeRcNumber(String rc) {
+        if (rc == null) return "";
+        return rc.replaceAll("[^0-9]", "");
+    }
+
+    public void fill() {
+        fillRegion();
+        fillDistrict();
+        fillQuartal();
+        fillStreet();
+
+        fillTextField("FHouseNum", String.valueOf(houseNumber));
+        setCheckbox("show_house_num", checkboxSelected);
+
+        fillTextField("RCNumber", rcNumber);
+        setCheckbox("show_rc_number", rcCheckboxSelected);
+
+        fillTextField("FAreaOverAll", String.valueOf(area));
+
+        for (String purpose : purposes) {
+            setCheckbox("FIntendance[]", purpose);
+        }
+
+        driver.findElement(By.id("showMoreFields")).click();
+
+        for (Integer feature : specialFeatures) {
+            setCheckbox("Special[]", String.valueOf(feature));
+        }
+
+        fillTextField("notes_lt", notesLt);
+        fillTextField("notes_en", notesEn);
+        fillTextField("notes_ru", notesRu);
+
+        fillTextField("Video", video);
+        fillTextField("tour_3d", tour3d);
+
+        fillTextField("price", String.valueOf(price));
+        fillTextField("phone", phone);
+        fillTextField("email", email);
+
+        setCheckbox("dont_show_in_ads", dontShowInAds);
+        setCheckbox("dont_want_chat", dontWantChat);
+        setCheckbox("InterestedChange", interestedChange ? "Y" : "N");
+        setCheckbox("auction", auction ? "1" : "0");
+        setCheckbox("agree_to_rules", agreeToRules);
+
+        selectRadio("account_type", String.valueOf(accountType));
+    }
+
+    public void fillRegion() {
+        wait.until(ExpectedConditions.elementToBeClickable(By.className("dropdown-input-value-title")));
+        List<WebElement> dropdowns = driver.findElements(By.className("dropdown-input-value-title"));
+        dropdowns.get(0).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.className("dropdown-input-search-value")));
+        driver.findElement(By.className("dropdown-input-search-value")).sendKeys(this.regionName);
+        driver.findElement(By.className("dropdown-input-search-value")).sendKeys(Keys.ENTER);
+    }
+
+    public void fillDistrict() {
+        wait.until(ExpectedConditions.elementToBeClickable(By.className("dropdown-input-value-title")));
+        List<WebElement> dropdowns = driver.findElements(By.className("dropdown-input-value-title"));
+        dropdowns.get(1).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.className("dropdown-input-search-value")));
+        driver.findElement(By.className("dropdown-input-search-value")).sendKeys(this.districtName);
+        driver.findElement(By.className("dropdown-input-search-value")).sendKeys(Keys.ENTER);
+    }
+
+    public void fillQuartal() {
+        wait.until(ExpectedConditions.elementToBeClickable(By.className("dropdown-input-value-title")));
+        List<WebElement> dropdowns = driver.findElements(By.className("dropdown-input-value-title"));
+        dropdowns.get(2).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.className("dropdown-input-search-value")));
+        List<WebElement> searchInputs = driver.findElements(By.className("dropdown-input-search-value"));
+        searchInputs.get(1).sendKeys(this.quartalName);
+        searchInputs.get(1).sendKeys(Keys.ENTER);
+    }
+
+    public void fillStreet() {
+        wait.until(ExpectedConditions.elementToBeClickable(By.className("dropdown-input-value-title")));
+        List<WebElement> dropdowns = driver.findElements(By.className("dropdown-input-value-title"));
+        dropdowns.get(3).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"streets_1\"]/li[1]/input")));
+        WebElement streetInput = driver.findElement(By.xpath("//*[@id=\"streets_1\"]/li[1]/input"));
+        streetInput.sendKeys(this.streetName);
+        streetInput.sendKeys(Keys.ENTER);
+    }
+
+    public void fillTextField(String fieldName, String value) {
+        if (value != null && !value.isEmpty()) {
+            try {
+                WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.name(fieldName)));
+                element.clear();
+                element.sendKeys(value);
+            } catch (Exception e) {
+                System.out.println("Nepavyko užpildyti lauko '" + fieldName + "': " + e.getMessage());
+            }
+        }
+    }
+
+    public void setCheckbox(String fieldName, boolean shouldBeChecked) {
+        try {
+            WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.name(fieldName)));
+            if (checkbox.isSelected() != shouldBeChecked) {
+                checkbox.click();
+            }
+        } catch (Exception e) {
+            System.out.println("Nepavyko nustatyti checkbox '" + fieldName + "': " + e.getMessage());
+        }
+    }
+
+    public void setCheckbox(String fieldName, String value) {
+        try {
+            WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='" + fieldName + "' and @value='" + value + "']")));
+            if (!checkbox.isSelected()) {
+                checkbox.click();
+            }
+        } catch (Exception e) {
+            System.out.println("Nepavyko pažymėti checkbox '" + fieldName + "': " + e.getMessage());
+        }
+    }
+
+    public void selectRadio(String fieldName, String value) {
+        try {
+            WebElement radio = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@name='" + fieldName + "' and @value='" + value + "']")));
+            radio.click();
+        } catch (Exception e) {
+            System.out.println("Nepavyko pasirinkti radio '" + fieldName + "': " + e.getMessage());
+        }
+    }
+}
 
