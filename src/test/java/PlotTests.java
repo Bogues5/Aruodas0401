@@ -177,105 +177,103 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.lang.classfile.TypeAnnotation;
+import java.nio.channels.ScatteringByteChannel;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
 public class PlotTests {
-    private WebDriver driver;
-    private WebDriverWait wait;
-    private Plot plot;
+    public WebDriver driver;
+    public WebDriverWait wait;
+    public Plot plot;
 
     @BeforeClass
     public void setUp() {
-        // Chromedriver kelias valdomas per POM, todėl nereikia jo nurodyti
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=11&offer_type=1");
+        acceptCookies();
 
-        // Inicializuojame Plot objektą su testiniais duomenimis
         plot = new Plot(
                 driver,
-                1, "Vilniaus m. sav.",           // regionCode, regionName
-                2, "Vilniaus r. sav.",           // districtCode, districtName
-                3, "Centras",                    // quartalCode, quartalName
-                4, "Gedimino pr.",              // streetCode, streetName
-                10, true,                        // houseNumber, checkboxSelected
-                "123456789", true,               // rcNumber, rcCheckboxSelected
-                150.5, Arrays.asList("Gyvenamasis", "Komercinis"), // area, purposes
-                true, Arrays.asList(1, 2),       // showAttributes, specialFeatures
-                true, false,                     // interestedChange, auction
-                "Pastaba LT", "Note EN", "Заметка RU", // notesLt, notesEn, notesRu
-                "http://video.com", "http://3d.com",   // video, tour3d
-                100000, "+37060000000", "test@example.com", // price, phone, email
-                false, true,                     // dontShowInAds, dontWantChat
-                1, true                          // accountType, agreeToRules
+                1, "Vilniaus m. sav.",
+                2, "Vilniaus r. sav.",
+                3, "Centras",
+                4, "Gedimino pr.",
+                10, true,
+                "123456789", true,
+                150.5, Arrays.asList("Gyvenamasis", "Komercinis"),
+                true, Arrays.asList(1, 2),
+                true, false,
+                "Pastaba LT", "Note EN", "Заметка RU",
+                "http://video.com", "http://3d.com",
+                100000, "+37060000000", "test@example.com",
+                false, true,
+                1, true
         );
+    }
+
+    public void acceptCookies() {
+        try {
+            WebElement acceptButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("onetrust-accept-btn-handler")));
+            acceptButton.click();
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("onetrust-policy-text")));
+        } catch (Exception e) {
+            System.out.println("Slapukų lentelė nerasta: " + e.getMessage());
+        }
     }
 
     @Test
     public void testPlotFormFilling() {
-        // Užpildome formą
         plot.fill();
 
-        // Tikriname regioną
         WebElement regionInput = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(By.className("dropdown-input-value-title"))
         );
-        Assert.assertEquals("Vilniaus m. sav.", regionInput.getText());
+        Assert.assertEquals("Vilniaus m. sav.", regionInput.getAttribute("value"));
 
-        // Tikriname namo numerį
         WebElement houseNum = driver.findElement(By.name("FHouseNum"));
         Assert.assertEquals("10", houseNum.getAttribute("value"));
 
-        // Tikriname RC numerį
         WebElement rcNumber = driver.findElement(By.name("RCNumber"));
         Assert.assertEquals("123456789", rcNumber.getAttribute("value"));
 
-        // Tikriname plotą
         WebElement area = driver.findElement(By.name("FAreaOverAll"));
         Assert.assertEquals("150.5", area.getAttribute("value"));
 
-        // Tikriname paskirtis
         List<WebElement> purposeCheckboxes = driver.findElements(By.name("FIntendance[]"));
         Assert.assertTrue(purposeCheckboxes.stream().anyMatch(cb -> cb.getAttribute("value").equals("Gyvenamasis") && cb.isSelected()));
         Assert.assertTrue(purposeCheckboxes.stream().anyMatch(cb -> cb.getAttribute("value").equals("Komercinis") && cb.isSelected()));
 
-        // Tikriname kainą
         WebElement price = driver.findElement(By.name("price"));
         Assert.assertEquals("100000", price.getAttribute("value"));
 
-        // Tikriname checkbox būseną
         WebElement dontWantChat = driver.findElement(By.name("dont_want_chat"));
         Assert.assertTrue(dontWantChat.isSelected());
     }
 
     @Test
     public void testDropdownSynchronization() {
-        // Užpildome regioną ir tikriname sinchronizaciją
         plot.fillRegion();
 
         WebElement regionDropdown = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(By.className("dropdown-input-value-title"))
         );
-        Assert.assertEquals("Vilniaus m. sav.", regionDropdown.getText());
+        Assert.assertEquals("Vilniaus m. sav.", regionDropdown.getAttribute("value"));
 
-        // Užpildome kvartalą ir tikriname
         plot.fillQuartal();
         List<WebElement> dropdowns = driver.findElements(By.className("dropdown-input-value-title"));
-        Assert.assertEquals("Centras", dropdowns.get(2).getText());
+        Assert.assertEquals("Centras", dropdowns.get(2).getAttribute("value"));
     }
 
     @Test
     public void testCheckboxAndRadioInteraction() {
-        // Užpildome formą
         plot.fill();
 
-        // Tikriname, ar "dont_show_in_ads" nepažymėtas
         WebElement dontShowInAds = driver.findElement(By.name("dont_show_in_ads"));
         Assert.assertFalse(dontShowInAds.isSelected());
 
-        // Tikriname account_type radio
         WebElement accountTypeRadio = driver.findElement(By.xpath("//input[@name='account_type' and @value='1']"));
         Assert.assertTrue(accountTypeRadio.isSelected());
     }
