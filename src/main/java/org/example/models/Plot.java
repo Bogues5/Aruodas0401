@@ -1,3 +1,37 @@
+/* Aprašymas: Kodo logika, struktūra ir paaiškinimai
+Plot.java
+ PASKIRTIS:
+Ši klasė skirta automatizuotai užpildyti sklypo skelbimo formą tinklalapyje, naudojant Selenium WebDriver.
+Visi kintamieji ir metodai yra public.
+
+STRUKTŪRA IR KINTAMIEJI
+WebDriver driver ir WebDriverWait wait – naudojami naršyklės valdymui ir laukimui, kol elementai bus pasiekiami.
+Adreso laukai: regionCode, regionName, districtCode, districtName, quartalCode, quartalName, streetCode, streetName, houseNumber, checkboxSelected.
+RC numerio laukai: rcNumber, rcCheckboxSelected.
+Ploto ir paskirties laukai: area, purposes, showAttributes, specialFeatures.
+Papildomi nustatymai: interestedChange, auction.
+Aprašymai: notesLt, notesEn, notesRu.
+Media: video, tour3d.
+Kontaktinė informacija: price, phone, email, dontShowInAds, dontWantChat.
+Vartotojo tipas ir taisyklės: accountType, agreeToRules.
+Konstruktoriai:
+Tuščias konstruktorius (public Plot()) – leidžia sukurti objektą be inicializacijos.
+Pilnas konstruktorius – priima visus kintamuosius ir inicializuoja objektą, taip pat nustato wait ir išvalo rcNumber.
+Metodai:
+sanitizeRcNumber: Pašalina ne skaitmeninius simbolius iš RC numerio.
+fill: Pagrindinis metodas, kuris kviečia kitus metodus formos užpildymui.
+fillRegion, fillDistrict, fillQuartal, fillStreet: Užpildo dropdown tipo laukus (regioną, rajoną, kvartalą, gatvę).
+fillTextField: Užpildo tekstinius laukus pagal pavadinimą.
+setCheckbox (dvi versijos): Nustato checkbox būseną pagal boolean reikšmę arba pagal reikšmę (value).
+selectRadio: Pasirenka radio mygtuką pagal pavadinimą ir reikšmę.
+Logika:
+
+Forma užpildoma nuosekliai: pirmiausia adresas (dropdown'ai), tada tekstiniai laukai, checkbox'ai ir radio mygtukai.
+Naudojamas WebDriverWait, kad būtų užtikrinta, jog elementai yra pasiekiami prieš juos užpildant.
+Checkbox'ai ir radio mygtukai valdomi pagal pateiktas boolean reikšmes arba specifines reikšmes (pvz., "Y", "1").*/
+
+
+
 package org.example.models;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -117,7 +151,7 @@ public class Plot {
         fillDistrict();
         fillQuartal();
         fillStreet();
-
+        driver.findElement(By.xpath("//*[@id=\"uploadPhotoBtn\"]/input")).sendKeys("C:\\Users\\Halo 5\\IdeaProjects\\Aruodas0401\\photos\\p1.jpeg");
     }
     public static String sanitizeRcNumber(String rc) {
         if (rc == null) return "";
@@ -126,22 +160,22 @@ public class Plot {
     private void fillStreet() {
         this.driver.findElements(By.className("dropdown-input-value-title")).get(3).click();
         wait(200);
-        this.driver.findElement(By.xpath("//*[@id=\"streets_1\"]/li[1]/input")).sendKeys(this.streetName);//veliau reikes korekciju
+        this.driver.findElement(By.xpath("//*[@id=\"streets_1\"]/li[1]/input")).sendKeys(this.streetName);
         wait(300);
         this.driver.findElement(By.xpath("//*[@id=\"streets_1\"]/li[1]/input")).sendKeys(Keys.ENTER);
     }
-    private void fillQuartal() {
+    public void fillQuartal() {
         this.driver.findElements(By.className("dropdown-input-value-title")).get(2).click();
-        this.driver.findElements(By.className("dropdown-input-search-value")).get(1).sendKeys(this.quartalName);//veliau reikes korekciju
+        this.driver.findElements(By.className("dropdown-input-search-value")).get(1).sendKeys(this.quartalName);
         wait(2000);
         this.driver.findElements(By.className("dropdown-input-search-value")).get(1).sendKeys(Keys.ENTER);
     }
-    private void fillDistrict() { //padaryti veliau
-        //        this.driver.findElements(By.className("dropdown-input-value-title")).get(1).click();
-        //        this.driver.findElement(By.className("dropdown-input-search-value")).sendKeys(this.region);
-        //        this.driver.findElement(By.className("dropdown-input-search-value")).sendKeys(Keys.ENTER);
+    public void fillDistrict() {
+               this.driver.findElements(By.className("dropdown-input-value-title")).get(1).click();
+               this.driver.findElement(By.className("dropdown-input-search-value")).sendKeys(this.regionName);
+               this.driver.findElement(By.className("dropdown-input-search-value")).sendKeys(Keys.ENTER);
     }
-    private void fillRegion() {
+    public void fillRegion() {
         this.driver.findElements(By.className("dropdown-input-value-title")).get(0).click();
         this.driver.findElement(By.className("dropdown-input-search-value")).sendKeys(this.regionName);
         wait(300);
@@ -155,4 +189,6 @@ public class Plot {
     }
 
 }
+
+
 

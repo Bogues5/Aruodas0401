@@ -1,6 +1,29 @@
+/*  PlotTests.java
+PASKIRTIS:
 
+Ši klasė skirta testuoti Plot klasės fill metodą, patikrinant, ar forma užpildoma teisingai.
 
-    /*   WebDriver driver = new ChromeDriver();
+STRUKTŪRA IR KINTAMIEJI:
+
+WebDriver driver ir WebDriverWait wait – naršyklės valdymui ir laukimui.
+Metodai:
+@BeforeClass setUp: Inicializuoja Chrome naršyklę, atidaro tinklalapį ir paspaudžia slapukų sutikimo mygtuką.
+@Test testFillPlotForm: Sukuria Plot objektą su testiniais duomenimis, užpildo formą ir patikrina laukų reikšmes.
+@AfterClass tearDown: Uždaro naršyklę po testų.
+Logika:
+
+Testas sukuria Plot objektą su iš anksto apibrėžtais duomenimis (pvz., Kaunas, Laisvės al. 5, 200 m² plotas ir kt.).
+Po formos užpildymo naudojami Assert metodai, kad patikrintų, ar laukų reikšmės ir checkbox būsenos atitinka įvestus duomenis.
+Testas apima visus formos laukus: adresą, RC numerį, plotą, paskirtis, ypatumus, aprašymus, kainą, kontaktus ir nustatymus.
+Paaiškinimai
+Selenium naudojimas: Abu failai naudoja Selenium WebDriver formos automatizavimui ir testavimui. By.name, By.id, By.xpath selektoriai atitinka tinklalapio HTML struktūrą.
+Kintamųjų prieiga: Visi kintamieji yra public, todėl juos galima tiesiogiai pasiekti ir testuoti.
+Patikimumas: Kodas turi klaidų tvarkymą (try-catch blokai), kad išvengtų gedimų, jei elementai nerandami.
+Testavimo duomenys: Teste naudojami realistiški duomenys, atitinkantys formos laukus, pvz., telefono numeris su šalies kodu, Youtube nuoroda ir kt.
+
+ Čia yra google pavizdys su assert
+
+       WebDriver driver = new ChromeDriver();
         driver.get("https://www.google.com");
       driver.manage().window().maximize();
       WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
