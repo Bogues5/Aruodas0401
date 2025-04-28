@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class Plot {
+public class PlotTests {
     public WebDriver driver;
     public WebDriverWait wait;
 
@@ -90,7 +90,6 @@ public class Plot {
     public void fillRegion() {
         wait.until(ExpectedConditions.elementToBeClickable(By.className("dropdown-input-value-title")));
         List<WebElement> dropdowns = driver.findElements(By.className("dropdown-input-value-title"));
-        // Pirmasis dropdown yra regionas
         dropdowns.get(0).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.className("dropdown-input-search-value")));
         WebElement searchField = driver.findElement(By.className("dropdown-input-search-value"));
@@ -161,7 +160,7 @@ public class Plot {
         }
     }
 
-    // Ploto (a) lauko pildymas
+    // Ploto lauko pildymas
     public void fillArea() {
         WebElement areaField = driver.findElement(By.name("FAreaOverAll"));
         areaField.clear();
@@ -182,7 +181,7 @@ public class Plot {
         }
     }
 
-    // Išplėsti (atverti) ypatybių lauką spustelėjus ant "Žymėti ypatumus"
+    // Išplėsti ypatybių sekciją paspaudus mygtuką "Žymėti ypatumus"
     public void expandAttributes(){
         WebElement button = wait.until(ExpectedConditions.elementToBeClickable(By.id("showMoreFields")));
         button.click();
@@ -272,7 +271,7 @@ public class Plot {
         emailField.sendKeys(this.email);
     }
 
-    // Checkbox "Išjungti kontaktavimo el. paštu" – įjungiamas, jei nepažymėtas
+    // Checkbox "Išjungti kontaktavimo el. paštu"
     public void toggleDontShowInAds(){
         WebElement checkbox = driver.findElement(By.id("cbdont_show_in_ads"));
         if(!checkbox.isSelected()){
@@ -288,7 +287,7 @@ public class Plot {
         }
     }
 
-    // Vartotojo tipo pasirinkimas („Jūs esate: …“) – pagal perduotą accountType (1 = Privatus asmuo, 2 = Tarpininkas, 3 = Vystytojas/statytojas, 4 = Kitas verslo subjektas)
+    // Vartotojo tipo pasirinkimas – atsižvelgiant į accountType (1 = Privatus asmuo, 2 = Tarpininkas, 3 = Vystytojas/statytojas, 4 = Kitas verslo subjektas)
     public void selectAccountType(){
         List<WebElement> buttons = driver.findElements(By.cssSelector(".input-buttons-wrapper .input-button"));
         for(WebElement btn : buttons){
@@ -308,7 +307,7 @@ public class Plot {
         }
     }
 
-    // Nuotraukos įkėlimas: spustelimas ant įkėlimo mygtuko ir failo kelio siunčiamas į <input type="file">
+    // Nuotraukos įkėlimas: spustelėjimas ant įkėlimo mygtuko ir failo kelio nusiųsti į <input type="file">
     public void uploadPhoto(String filePath){
         WebElement uploadButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("uploadPhotoBtn")));
         uploadButton.click();
@@ -316,9 +315,12 @@ public class Plot {
         fileInput.sendKeys(filePath);
     }
 
-    // Skelbimo pateikimas (mygtuko "Įvesti skelbimą" paspaudimas)
+    // Skelbimo pateikimas – spustelimas ant "Įvesti skelbimą" mygtuko
     public void submitListing(){
         WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(., 'Įvesti skelbimą')]")));
         submitButton.click();
     }
+}
+
+public void main() {
 }
