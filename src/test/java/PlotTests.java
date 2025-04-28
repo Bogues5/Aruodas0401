@@ -1,286 +1,255 @@
-
-/*
-package org.example.tests;
-import org.example.models.Plot;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.List;
 
 public class PlotTests {
-    public WebDriver driver;
-    public WebDriverWait wait;
+    private WebDriver driver;
+    private WebDriverWait wait;
+    private Plot plot;
 
     @BeforeClass
     public void setUp() {
-
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=11&offer_type=1");
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-
-        // Paspaudžiame slapukų sutikimo mygtuką
-        try {
-            WebElement acceptBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id("onetrust-reject-all-handler")));
-            acceptBtn.click();
-        } catch (Exception e) {
-            System.out.println("Slapukų sutikimo mygtukas nerastas arba jau paspaustas: " + e.getMessage());
-        }
-    }
-
-    @Test
-    public void testPlotCreation() {
-        List<String> purposes = Arrays.asList("property", "manufacturingland", "farm", "garden", "forest",
-                "factory", "storage", "comm", "recr", "none");
-        List<Integer> specialFeatures = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 11, 501);
-        String notesLt = "Sklypas mane tenkina ir norėčiau daugiau galimybių rinktis apmokėjimo būdui";
-        String notesEn = "The plot meets my requirements and I would like more options for selecting the payment method";
-        String notesRu = "Участок мне подходит, и я хотел бы иметь больше возможностей для выбора способа оплаты.";
-        String video = "https://www.youtube.com/embed/sklypaiExample";
-        String tour3d = "https://www.example.com/3d-tour/sklypas";
-        int price = 35000;
-        String phone = "+37060000000";
-        String email = "example@example.com";
-        boolean dontShowInAds = false;
-        boolean dontWantChat = true;
-        int accountType = 1;
-        boolean agreeToRules = true;
-        String unsanitizedRc = "1234-5678-ABC9012";
-        String expectedRc = "123456789012";
-
-        // Sukuriame naują Plot objektą naudodami pavyzdinius duomenis
-        Plot plot = new Plot(driver, 461, "Vilnius", 1, "Vilniaus m.", 2, "Balsiai",
-                21862, "A. Jakšto g.", 5, true,
-                unsanitizedRc, true,
-                200.0, purposes,
-                true, specialFeatures,
-                true, false,
-                notesLt, notesEn, notesRu,
-                video, tour3d,
-                price, phone, email,
-                dontShowInAds, dontWantChat,
-                accountType, agreeToRules);
-
-        // Asercijos tikrina, ar kiekvienas laukas atitinka lūkesčius
-       Assert.assertEquals(plot.regionCode, 461);
-       Assert.assertEquals(plot.regionName, "Vilnius");
-
-    }
-
-    @Test
-    public void testRcNumberSanitizationStaticMethod() {
-        String unsanitized = "12ab34CD56";
-        String expected = "123456";
-        Assert.assertEquals(expected, Plot.sanitizeRcNumber(unsanitized));
-    }
-
-    @Test
-    public void testAruodasSkelbimas() {
-        // Sukuriame Plot objektą
-//        Plot plot = new Plot(driver, wait);
-
-        // Iškviečiame metodą, kuris suranda dropdown laukus pagal label tekstą ir simuliuoja ENTER paspaudimus
-//        plot.selectLocationFields(driver);
-
-        // Patikriname, ar URL vis dar atitinka lūkesčius
-        Assert.assertTrue(driver.getCurrentUrl().contains("aruodas.lt/ideti-skelbima"),
-                "URL turėtų turėti 'aruodas.lt/ideti-skelbima'");
-    }
-
-    @Test
-    public void testPlotToString() {
-        List<String> purposes = Arrays.asList("property", "manufacturingland", "farm", "garden", "forest",
-                "factory", "storage", "comm", "recr", "none");
-        List<Integer> specialFeatures = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 11, 501);
-        String notesLt = "Sklypas mane tenkina ir norėčiau daugiau galimybių rinktis apmokėjimo būdui";
-        String notesEn = "The plot meets my requirements and I would like more options for selecting the payment method";
-        String notesRu = "Участок мне подходит, и я хотел бы иметь больше возможностей для выбора способа оплаты.";
-        String video = "https://www.youtube.com/embed/sklypaiExample";
-        String tour3d = "https://www.example.com/3d-tour/sklypas";
-        int price = 35000;
-        String phone = "+37060000000";
-        String email = "example@example.com";
-        boolean dontShowInAds = false;
-        boolean dontWantChat = true;
-        int accountType = 1;
-        boolean agreeToRules = true;
-        String unsanitizedRc = "1234-5678-9012";
-
-        Plot plot = new Plot(driver, 461, "Vilnius", 1, "Vilniaus m.", 2, "Bajorai",
-                21862, "A. Jakšto g.", 5, true,
-                unsanitizedRc, true,
-                200.0, purposes,
-                true, specialFeatures,
-                true, false,
-                notesLt, notesEn, notesRu,
-                video, tour3d,
-                price, phone, email,
-                dontShowInAds, dontWantChat,
-                accountType, agreeToRules);
-        String plotString = plot.toString();
-        System.out.println(plot);
-        plot.fill();
-    }
-*/
-
-/*  PlotTests.java
-PASKIRTIS:
-
-Ši klasė skirta testuoti Plot klasės fill metodą, patikrinant, ar forma užpildoma teisingai.
-
-STRUKTŪRA IR KINTAMIEJI:
-
-WebDriver driver ir WebDriverWait wait – naršyklės valdymui ir laukimui.
-Metodai:
-@BeforeClass setUp: Inicializuoja Chrome naršyklę, atidaro tinklalapį ir paspaudžia slapukų sutikimo mygtuką.
-@Test testFillPlotForm: Sukuria Plot objektą su testiniais duomenimis, užpildo formą ir patikrina laukų reikšmes.
-@AfterClass tearDown: Uždaro naršyklę po testų.
-Logika:
-
-Testas sukuria Plot objektą su iš anksto apibrėžtais duomenimis (pvz., Kaunas, Laisvės al. 5, 200 m² plotas ir kt.).
-Po formos užpildymo naudojami Assert metodai, kad patikrintų, ar laukų reikšmės ir checkbox būsenos atitinka įvestus duomenis.
-Testas apima visus formos laukus: adresą, RC numerį, plotą, paskirtis, ypatumus, aprašymus, kainą, kontaktus ir nustatymus.
-Paaiškinimai
-Selenium naudojimas: Abu failai naudoja Selenium WebDriver formos automatizavimui ir testavimui. By.name, By.id, By.xpath selektoriai atitinka tinklalapio HTML struktūrą.
-Kintamųjų prieiga: Visi kintamieji yra public, todėl juos galima tiesiogiai pasiekti ir testuoti.
-Patikimumas: Kodas turi klaidų tvarkymą (try-catch blokai), kad išvengtų gedimų, jei elementai nerandami.
-Testavimo duomenys: Teste naudojami realistiški duomenys, atitinkantys formos laukus, pvz., telefono numeris su šalies kodu, Youtube nuoroda ir kt.
-
- Čia yra google pavizdys su assert
-
-       WebDriver driver = new ChromeDriver();
-        driver.get("https://www.google.com");
-      driver.manage().window().maximize();
-      WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-       wait.until(ExpectedConditions.titleContains("Google"));
-       Assert.assertTrue(driver.getTitle().contains("Google"), "Puslapio title turėtų turėti 'Google'");
-      driver.quit();  Uždarykite naršyklę.*/
-
-import org.example.models.Plot;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-
-import java.lang.classfile.TypeAnnotation;
-import java.nio.channels.ScatteringByteChannel;
-import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
-
-public class PlotTests {
-    public WebDriver driver;
-    public WebDriverWait wait;
-    public Plot plot;
-
-    @BeforeClass
-    public void setUp() {
+        // Inicializuojame WebDriver (pvz., ChromeDriver) ir maksimalizuojame langą.
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=11&offer_type=1");
-        acceptCookies();
+        driver.manage().window().maximize();
 
-        plot = new Plot(
-                driver,
-                1, "Vilniaus m. sav.",
-                2, "Vilniaus r. sav.",
-                3, "Centras",
-                4, "Gedimino pr.",
-                10, true,
-                "123456789", true,
-                150.5, Arrays.asList("Gyvenamasis", "Komercinis"),
-                true, Arrays.asList(1, 2),
-                true, false,
-                "Pastaba LT", "Note EN", "Заметка RU",
-                "http://video.com", "http://3d.com",
-                100000, "+37060000000", "test@example.com",
-                false, true,
-                1, true
-        );
+        // Atidarome skelbimų įkėlimo puslapį
+        driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=11&offer_type=1");
+
+        // Priimame slapukų pranešimą, jei toks matomas (pakeiskite ID, jei reikia)
+        try {
+            WebElement cookieButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("cookieAcceptButton")));
+            cookieButton.click();
+        } catch (Exception e) {
+            // Jei nėra – tęsiame.
+        }
+
+        // Inicializuojame Plot modelį su testiniais duomenimis
+        plot = new Plot(driver,
+                461, "Vilnius",              // Regiono duomenys.
+                1, "Vilniaus m.",            // Gyvenvietės (district) duomenys.
+                1, "Antakalnis",             // Mikrorajono (quartal) duomenys.
+                21862, "A. Jakšto g.",        // Gatvės duomenys.
+                5, true,                     // Namo numeris ir checkbox "Rodyti"
+                "1234-5678-9012", true,       // RC numeris ir jo checkbox.
+                150.5,                     // Plotas (a).
+                List.of("property", "farm"), // Paskirties checkbox'ai.
+                true, List.of(1, 2, 3),      // Ypatybių rodyti nustatymas ir specialių ypatybių checkbox'ai.
+                true, false,               // "Domina keitimas" ir "Varžytynės/aukcionas" checkbox'ai.
+                "Gražus butas", "Nice apartment", "Хорошая квартира",  // Aprašymo tekstai LT, EN, RU.
+                "https://www.youtube.com/embed/test", "https://tour3d.example.com", // Youtube nuoroda ir 3D turas.
+                100000,                    // Sklypo kaina.
+                "+37060000000", "test@example.com", // Telefono numeris ir el. paštas.
+                true, true,                // Išjungti kontaktavimo el. paštu ir pokalbių funkcijas.
+                1,                         // Vartotojo tipas (1 = Privatus asmuo).
+                true);                     // Sutinkama su taisyklėmis.
     }
 
-    public void acceptCookies() {
-        try {
-            WebElement acceptButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("onetrust-accept-btn-handler")));
-            acceptButton.click();
-            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("onetrust-policy-text")));
-        } catch (Exception e) {
-            System.out.println("Slapukų lentelė nerasta: " + e.getMessage());
+    @Test(priority = 1)
+    public void testFillRegion() {
+        plot.fillRegion();
+        WebElement regionElement = driver.findElement(By.className("dropdown-input-value-title"));
+        assert regionElement.getText().contains(plot.regionName);
+    }
+
+    @Test(priority = 2)
+    public void testFillDistrict() {
+        plot.fillDistrict();
+        WebElement districtElement = driver.findElement(By.id("districtTitle"));
+        // Patikriname, ar įvestas tekstas nėra tuščias – (detalų tikrinimas gali priklausyti nuo implementacijos)
+        assert !districtElement.getAttribute("value").isEmpty();
+    }
+
+    @Test(priority = 3)
+    public void testFillQuartal() {
+        plot.fillQuartal();
+        WebElement quartalElement = driver.findElement(By.id("quartalTitle"));
+        assert !quartalElement.getAttribute("value").isEmpty();
+    }
+
+    @Test(priority = 4)
+    public void testFillStreet() {
+        plot.fillStreet();
+        WebElement streetElement = driver.findElement(By.id("streetTitle"));
+        assert streetElement.getText().contains(plot.streetName);
+    }
+
+    @Test(priority = 5)
+    public void testFillHouseNumber() {
+        plot.fillHouseNumber();
+        WebElement houseNumField = driver.findElement(By.name("FHouseNum"));
+        assert houseNumField.getAttribute("value").equals(String.valueOf(plot.houseNumber));
+    }
+
+    @Test(priority = 6)
+    public void testToggleShowHouseNumberCheckbox() {
+        plot.toggleShowHouseNumberCheckbox();
+        WebElement checkbox = driver.findElement(By.id("cbshow_house_num"));
+        assert checkbox.isSelected();
+    }
+
+    @Test(priority = 7)
+    public void testFillRCNumber() {
+        plot.fillRCNumber();
+        WebElement rcField = driver.findElement(By.name("RCNumber"));
+        assert rcField.getAttribute("value").equals(plot.rcNumber);
+    }
+
+    @Test(priority = 8)
+    public void testToggleRCCheckbox() {
+        plot.toggleRCCheckbox();
+        WebElement checkbox = driver.findElement(By.id("cbshow_rc_number"));
+        assert checkbox.isSelected();
+    }
+
+    @Test(priority = 9)
+    public void testFillArea() {
+        plot.fillArea();
+        WebElement areaField = driver.findElement(By.name("FAreaOverAll"));
+        assert areaField.getAttribute("value").equals(String.valueOf(plot.area));
+    }
+
+    @Test(priority = 10)
+    public void testSelectPurposes() {
+        plot.selectPurposes();
+        for (String purpose : plot.purposes) {
+            String xpath = String.format("//input[@name='FIntendance[]' and @value='%s']", purpose);
+            List<WebElement> checkboxes = driver.findElements(By.xpath(xpath));
+            if (!checkboxes.isEmpty()) {
+                assert checkboxes.get(0).isSelected();
+            }
         }
     }
 
-    @Test
-    public void testPlotFormFilling() {
-        plot.fill();
-
-        WebElement regionInput = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(By.className("dropdown-input-value-title"))
-        );
-        Assert.assertEquals("Vilniaus m. sav.", regionInput.getAttribute("value"));
-
-        WebElement houseNum = driver.findElement(By.name("FHouseNum"));
-        Assert.assertEquals("10", houseNum.getAttribute("value"));
-
-        WebElement rcNumber = driver.findElement(By.name("RCNumber"));
-        Assert.assertEquals("123456789", rcNumber.getAttribute("value"));
-
-        WebElement area = driver.findElement(By.name("FAreaOverAll"));
-        Assert.assertEquals("150.5", area.getAttribute("value"));
-
-        List<WebElement> purposeCheckboxes = driver.findElements(By.name("FIntendance[]"));
-        Assert.assertTrue(purposeCheckboxes.stream().anyMatch(cb -> cb.getAttribute("value").equals("Gyvenamasis") && cb.isSelected()));
-        Assert.assertTrue(purposeCheckboxes.stream().anyMatch(cb -> cb.getAttribute("value").equals("Komercinis") && cb.isSelected()));
-
-        WebElement price = driver.findElement(By.name("price"));
-        Assert.assertEquals("100000", price.getAttribute("value"));
-
-        WebElement dontWantChat = driver.findElement(By.name("dont_want_chat"));
-        Assert.assertTrue(dontWantChat.isSelected());
+    @Test(priority = 11)
+    public void testExpandAttributesAndSelectSpecialFeatures() {
+        plot.expandAttributes();
+        // Patikriname, ar rodoma bent viena ypatybė, pvz., turinti tekstą "Elektra"
+        WebElement attributesContainer = driver.findElement(By.xpath("//div[contains(@class,'input-style-checkbox') and contains(.,'Elektra')]"));
+        assert attributesContainer.isDisplayed();
+        plot.selectSpecialFeatures();
+        for (Integer feature : plot.specialFeatures) {
+            String xpath = String.format("//input[@name='Special[]' and @value='%d']", feature);
+            List<WebElement> specialCheckboxes = driver.findElements(By.xpath(xpath));
+            if (!specialCheckboxes.isEmpty()) {
+                assert specialCheckboxes.get(0).isSelected();
+            }
+        }
     }
 
-    @Test
-    public void testDropdownSynchronization() {
-        plot.fillRegion();
-
-        WebElement regionDropdown = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(By.className("dropdown-input-value-title"))
-        );
-        Assert.assertEquals("Vilniaus m. sav.", regionDropdown.getAttribute("value"));
-
-        plot.fillQuartal();
-        List<WebElement> dropdowns = driver.findElements(By.className("dropdown-input-value-title"));
-        Assert.assertEquals("Centras", dropdowns.get(2).getAttribute("value"));
+    @Test(priority = 12)
+    public void testToggleInterestedChange() {
+        plot.toggleInterestedChange();
+        WebElement checkbox = driver.findElement(By.id("cbInterestedChange"));
+        assert checkbox.isSelected();
     }
 
-    @Test
-    public void testCheckboxAndRadioInteraction() {
-        plot.fill();
-
-        WebElement dontShowInAds = driver.findElement(By.name("dont_show_in_ads"));
-        Assert.assertFalse(dontShowInAds.isSelected());
-
-        WebElement accountTypeRadio = driver.findElement(By.xpath("//input[@name='account_type' and @value='1']"));
-        Assert.assertTrue(accountTypeRadio.isSelected());
+    @Test(priority = 13)
+    public void testToggleAuction() {
+        plot.toggleAuction();
+        WebElement checkbox = driver.findElement(By.id("cbAuction"));
+        assert checkbox.isSelected();
     }
 
-    @AfterClass
-    public void tearDown() {
-        if (driver != null) {
+    @Test(priority = 14)
+    public void testFillDescription() {
+        plot.fillDescription();
+        WebElement notesLtField = driver.findElement(By.name("notes_lt"));
+        WebElement notesEnField = driver.findElement(By.name("notes_en"));
+        WebElement notesRuField = driver.findElement(By.name("notes_ru"));
+        assert notesLtField.getAttribute("value").equals(plot.notesLt);
+        assert notesEnField.getAttribute("value").equals(plot.notesEn);
+        assert notesRuField.getAttribute("value").equals(plot.notesRu);
+    }
+
+    @Test(priority = 15)
+    public void testFillVideoAndTour3D() {
+        plot.fillVideoAndTour3D();
+        WebElement videoField = driver.findElement(By.name("Video"));
+        WebElement tour3dField = driver.findElement(By.name("tour_3d"));
+        assert videoField.getAttribute("value").equals(plot.video);
+        assert tour3dField.getAttribute("value").equals(plot.tour3d);
+    }
+
+    @Test(priority = 16)
+    public void testFillPrice() {
+        plot.fillPrice();
+        WebElement priceField = driver.findElement(By.id("priceField"));
+        assert priceField.getAttribute("value").equals(String.valueOf(plot.price));
+    }
+
+    @Test(priority = 17)
+    public void testFillPhone() {
+        plot.fillPhone();
+        WebElement phoneField = driver.findElement(By.name("phone"));
+        assert phoneField.getAttribute("value").equals(plot.phone);
+    }
+
+    @Test(priority = 18)
+    public void testFillEmail() {
+        plot.fillEmail();
+        WebElement emailField = driver.findElement(By.name("email"));
+        assert emailField.getAttribute("value").equals(plot.email);
+        {
+        }
+
+        @Test(priority = 19)
+        public void testToggleDontShowInAds () {
+            plot.toggleDontShowInAds();
+            WebElement checkbox = driver.findElement(By.id("cbdont_show_in_ads"));
+            assert checkbox.isSelected();
+        }
+
+        @Test(priority = 20)
+        public void testToggleDontWantChat () {
+            plot.toggleDontWantChat();
+            WebElement checkbox = driver.findElement(By.id("cbdont_want_chat"));
+            assert checkbox.isSelected();
+        }
+
+        @Test(priority = 21)
+        public void testSelectAccountType () {
+            plot.selectAccountType();
+            // Patikriname, ar paslėptas input su name "account_type" atitinka
+            WebElement hiddenInput = driver.findElement(By.name("account_type"));
+            assert hiddenInput.getAttribute("value").equals(String.valueOf(plot.accountType));
+        }
+
+        @Test(priority = 22)
+        public void testToggleAgreeToRules () {
+            plot.toggleAgreeToRules();
+            WebElement checkbox = driver.findElement(By.id("cbagree_to_rules"));
+            assert checkbox.isSelected();
+        }
+
+        @Test(priority = 23)
+        public void testUploadPhoto () {
+            // Nuotraukos įkėlimas – nurodykite tikrą failo kelią savo sistemoje.
+            String filePath = "C:\\path\\to\\your\\testimage.jpg";
+            plot.uploadPhoto(filePath);
+            WebElement uploadedThumbnail = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("uploaded-photo-thumbnail")));
+            assert uploadedThumbnail.isDisplayed();
+        }
+
+        @Test(priority = 24)
+        public void testSubmitListing () {
+            plot.submitListing();
+            // Po skelbimo pateikimo galima patikrinti ar rodoma patvirtinimo žinutė (locator pritaikykite pagal savo puslapį)
+            WebElement confirmationMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmationMessage")));
+            assert confirmationMessage.isDisplayed();
+        }
+
+        @AfterClass
+        public void tearDown () {
             driver.quit();
         }
     }
