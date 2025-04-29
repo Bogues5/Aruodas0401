@@ -22,11 +22,11 @@ public class PlotTests {
     public void setUp() {
         // Inicializuojame WebDriver (pvz., ChromeDriver) ir maksimalizuojame langą
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(20)); // Increased timeout to 20 seconds
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5)); // Increased timeout to 20 seconds
         driver.manage().window().maximize();
 
         // Configure implicit wait for better element finding
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
         // Atidarome skelbimų įkėlimo puslapį
         driver.get("https://www.aruodas.lt/ideti-skelbima/?obj=11&offer_type=1");
@@ -62,7 +62,7 @@ public class PlotTests {
     }
 
     @Test
-    public void testFillRegion() {
+    public void testFillRegion() throws InterruptedException {
         Plot plot = new Plot(
                 driver,
                 461, "Vilnius",               // Regiono duomenys
@@ -87,11 +87,20 @@ public class PlotTests {
         plot.fill();
 
         // Wait a bit to allow the form to update after filling
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+
+            driver.findElement(By.xpath("/html/body/div[1]/div[2]/form/ul/li[3]/span[1]/input[2]"));
+            driver.wait(10);
+
+            driver.findElement(By.xpath("/html/body/div[1]/div[2]/form/ul/li[4]/span[1]/input[2]"));
+            driver.wait(10);
+
+            driver.findElement(By.xpath("/html/body/div[1]/div[2]/form/ul/li[5]/span[1]/input[2]"));
+            driver.wait(10);
+
+            driver.findElement(By.xpath("/html/body/div[1]/div[2]/form/ul/li[6]/span[1]/input[2]"));
+            driver.wait(10);
+
+
 
         // Tikriname, ar regionas buvo užpildytas teisingai - try different selectors
         try {
@@ -104,10 +113,6 @@ public class PlotTests {
         }
     }
 
-    @AfterClass
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+
+
 }

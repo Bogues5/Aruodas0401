@@ -117,77 +117,70 @@ public class Plot {
         uploadPhoto();
     }
 
-    // Savivaldybės dropdown
     public void fillRegion() {
-        // First, let's wait for the page to load completely
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("objectFormContainer")));
+        // First wait for page to fully load
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/div[2]/form/ul/li[3]/span[1]/input[2]")));
 
-        // Now try to find the region dropdown with different possible selectors
-        WebElement regionInput;
         try {
-            regionInput = wait.until(ExpectedConditions.elementToBeClickable(By.id("regionInput")));
+            // Find and click the dropdown trigger element
+            WebElement dropdownTrigger = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.cssSelector("input.dropdown-input-value-title")));
+            dropdownTrigger.click();
+
+            // Wait for dropdown to appear
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/div[2]/form/ul/li[3]/span[1]/ul[2]/li[2]")));
+
+            // Find search field
+            WebElement searchField = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.cssSelector(".dropdown-input-search-value")));
+
+
+            // Find and click the matching option
+            // Using contains to handle potential case insensitivity
+            String xpathSelector = String.format(
+                    "//li[contains(@data-search-string, '%s') or contains(text(), '%s')]",
+                    this.regionName.toLowerCase(), this.regionName);
+
+            WebElement option = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpathSelector)));
+            option.click();
+
+            // Verify selection was made
+            wait.until(ExpectedConditions.textToBePresentInElementLocated(
+                    By.cssSelector("input.dropdown-input-value-title"), this.regionName));
+
         } catch (Exception e) {
-            try {
-                regionInput = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".region-input-wrapper .dropdown-input-value")));
-            } catch (Exception e2) {
-                regionInput = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, 'dropdown-input-value') and contains(@class, 'region-input')]")));
-            }
-        }
-
-        regionInput.click(); // Atidaromas dropdown
-
-        // Find the search field (different selectors)
-        WebElement searchField;
-        try {
-            searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#regionDropdown .dropdown-input-search-value")));
-        } catch (Exception e) {
-            searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'region-dropdown')]//input[@type='text']")));
-        }
-
-        searchField.sendKeys(this.regionName);
-        searchField.sendKeys(Keys.ENTER);
-
-        // Wait for loading to complete
-        try {
-            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("regionLoading")));
-        } catch (Exception e) {
-            // Wait a little to give time for the page to update
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ie) {
-                Thread.currentThread().interrupt();
-            }
+            System.out.println("Error selecting region: " + e.getMessage());
+            e.printStackTrace();
         }
     }
-
     // Gyvenvietės (district) lauko pildymas
     public void fillDistrict() {
-        WebElement districtField = wait.until(ExpectedConditions.elementToBeClickable(By.id("districtTitle")));
+        WebElement districtField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div[2]/form/ul/li[4]/span[1]/input[2]")));
         districtField.click();
-        WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#districts_" + this.regionCode + " .dropdown-input-search-value")));
+        WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/div[2]/form/ul/li[4]/span[1]/ul[2]/li[1]" + this.regionCode + " .dropdown-input-search-value")));
         searchField.sendKeys(this.districtName);
         searchField.sendKeys(Keys.ENTER);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("districtLoading")));
+
     }
 
     // Mikrorajono (quartal) lauko pildymas
     public void fillQuartal() {
-        WebElement quartalField = wait.until(ExpectedConditions.elementToBeClickable(By.id("quartalTitle")));
+        WebElement quartalField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div[2]/form/ul/li[5]/span[1]/input[2]")));
         quartalField.click();
         WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#quartals_" + this.districtCode + " .dropdown-input-search-value")));
         searchField.sendKeys(this.quartalName);
         searchField.sendKeys(Keys.ENTER);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("quartalLoading")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("/html/body/div[1]/div[2]/form/ul/li[5]/span[1]/ul[2]/li[6]")));
     }
 
     // Gatvės lauko pildymas
     public void fillStreet() {
-        WebElement streetField = wait.until(ExpectedConditions.elementToBeClickable(By.id("streetTitle")));
+        WebElement streetField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div[2]/form/ul/li[6]/span[1]/input[2]")));
         streetField.click();
         WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#streets_" + this.quartalCode + " .dropdown-input-search-value")));
         searchField.sendKeys(this.streetName);
         searchField.sendKeys(Keys.ENTER);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("streetLoading")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("/html/body/div[1]/div[2]/form/ul/li[6]/span[1]/ul[2]/li[5]")));
     }
 
     // Namo numerio lauko pildymas
