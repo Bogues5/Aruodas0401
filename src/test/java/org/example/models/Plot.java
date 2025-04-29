@@ -45,6 +45,7 @@ public class Plot {
     public boolean dontWantChat;
     public int accountType;
     public boolean agreeToRules;
+    public String photoUrl;
 
     public Plot(WebDriver driver, int regionCode, String regionName, int districtCode, String districtName,
                 int quartalCode, String quartalName, int streetCode, String streetName, int houseNumber,
@@ -52,7 +53,7 @@ public class Plot {
                 List<String> purposes, boolean showAttributes, List<Integer> specialFeatures,
                 boolean interestedChange, boolean auction, String notesLt, String notesEn, String notesRu,
                 String video, String tour3d, int price, String phone, String email, boolean dontShowInAds,
-                boolean dontWantChat, int accountType, boolean agreeToRules) {
+                boolean dontWantChat, int accountType, boolean agreeToRules, String photoUrl) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
@@ -86,8 +87,10 @@ public class Plot {
         this.dontWantChat = dontWantChat;
         this.accountType = accountType;
         this.agreeToRules = agreeToRules;
+        this.photoUrl = photoUrl;
     }
-    public void fill(){
+
+    public void fill() {
         fillRegion();
         fillDistrict();
         fillQuartal();
@@ -111,88 +114,93 @@ public class Plot {
         toggleDontWantChat();
         selectAccountType();
         toggleAgreeToRules();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        uploadPhoto();
     }
 
-    // Regiono dropdown – spustelėja lauką, įveda regiono pavadinimą ir pasirenka variantą
+    // Savivaldybės dropdown
     public void fillRegion() {
-        wait.until(ExpectedConditions.elementToBeClickable(By.className("dropdown-input-value-title")));
-        List<WebElement> dropdowns = driver.findElements(By.className("dropdown-input-value-title"));
-        dropdowns.get(0).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.className("dropdown-input-search-value")));
-        WebElement searchField = driver.findElement(By.className("dropdown-input-search-value"));
+        // First, let's wait for the page to load completely
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("objectFormContainer")));
+
+        // Now try to find the region dropdown with different possible selectors
+        WebElement regionInput;
+        try {
+            regionInput = wait.until(ExpectedConditions.elementToBeClickable(By.id("regionInput")));
+        } catch (Exception e) {
+            try {
+                regionInput = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".region-input-wrapper .dropdown-input-value")));
+            } catch (Exception e2) {
+                regionInput = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, 'dropdown-input-value') and contains(@class, 'region-input')]")));
+            }
+        }
+
+        regionInput.click(); // Atidaromas dropdown
+
+        // Find the search field (different selectors)
+        WebElement searchField;
+        try {
+            searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#regionDropdown .dropdown-input-search-value")));
+        } catch (Exception e) {
+            searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'region-dropdown')]//input[@type='text']")));
+        }
+
         searchField.sendKeys(this.regionName);
         searchField.sendKeys(Keys.ENTER);
+
+        // Wait for loading to complete
+        try {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("regionLoading")));
+        } catch (Exception e) {
+            // Wait a little to give time for the page to update
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+        }
     }
 
     // Gyvenvietės (district) lauko pildymas
     public void fillDistrict() {
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("districtTitle")));
-        WebElement districtField = driver.findElement(By.id("districtTitle"));
+        WebElement districtField = wait.until(ExpectedConditions.elementToBeClickable(By.id("districtTitle")));
         districtField.click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.className("dropdown-input-search-value")));
-        WebElement searchField = driver.findElement(By.className("dropdown-input-search-value"));
+        WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#districts_" + this.regionCode + " .dropdown-input-search-value")));
         searchField.sendKeys(this.districtName);
         searchField.sendKeys(Keys.ENTER);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("districtLoading")));
     }
 
     // Mikrorajono (quartal) lauko pildymas
     public void fillQuartal() {
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("quartalTitle")));
-        WebElement quartalField = driver.findElement(By.id("quartalTitle"));
+        WebElement quartalField = wait.until(ExpectedConditions.elementToBeClickable(By.id("quartalTitle")));
         quartalField.click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.className("dropdown-input-search-value")));
-        WebElement searchField = driver.findElement(By.className("dropdown-input-search-value"));
+        WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#quartals_" + this.districtCode + " .dropdown-input-search-value")));
         searchField.sendKeys(this.quartalName);
         searchField.sendKeys(Keys.ENTER);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("quartalLoading")));
     }
 
     // Gatvės lauko pildymas
     public void fillStreet() {
-        wait.until(ExpectedConditions.elementToBeClickable(By.id("streetTitle")));
-        WebElement streetField = driver.findElement(By.id("streetTitle"));
+        WebElement streetField = wait.until(ExpectedConditions.elementToBeClickable(By.id("streetTitle")));
         streetField.click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.className("dropdown-input-search-value")));
-        WebElement searchField = driver.findElement(By.className("dropdown-input-search-value"));
+        WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#streets_" + this.quartalCode + " .dropdown-input-search-value")));
         searchField.sendKeys(this.streetName);
         searchField.sendKeys(Keys.ENTER);
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("streetLoading")));
     }
 
     // Namo numerio lauko pildymas
-    public void fillHouseNumber(){
+    public void fillHouseNumber() {
         WebElement houseNumField = wait.until(ExpectedConditions.elementToBeClickable(By.name("FHouseNum")));
         houseNumField.clear();
         houseNumField.sendKeys(String.valueOf(this.houseNumber));
     }
 
-    // Checkbox "Rodyti" prie namo numerio – jei reikia jį įjungti
+    // Checkbox "Rodyti" prie namo numerio
     public void toggleShowHouseNumberCheckbox() {
-        WebElement checkbox = driver.findElement(By.id("cbshow_house_num"));
-        if(!checkbox.isSelected()){
+        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.id("cbshow_house_num")));
+        if (this.checkboxSelected != checkbox.isSelected()) {
             checkbox.click();
         }
     }
@@ -206,145 +214,140 @@ public class Plot {
 
     // Checkbox RC numerio rodyti
     public void toggleRCCheckbox() {
-        WebElement checkbox = driver.findElement(By.id("cbshow_rc_number"));
-        if(!checkbox.isSelected()){
+        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.id("cbshow_rc_number")));
+        if (this.rcCheckboxSelected != checkbox.isSelected()) {
             checkbox.click();
         }
     }
 
     // Ploto lauko pildymas
     public void fillArea() {
-        WebElement areaField = driver.findElement(By.name("FAreaOverAll"));
+        WebElement areaField = wait.until(ExpectedConditions.elementToBeClickable(By.name("FAreaOverAll")));
         areaField.clear();
         areaField.sendKeys(String.valueOf(this.area));
     }
 
-    // Paskirties checkbox'ų žymėjimas – iteruojame per duotą paskirčių sąrašą
-    public void selectPurposes(){
-        for(String purpose : this.purposes){
+    // Paskirties checkbox'ų žymėjimas
+    public void selectPurposes() {
+        for (String purpose : this.purposes) {
             String xpath = String.format("//input[@name='FIntendance[]' and @value='%s']", purpose);
-            List<WebElement> checkboxes = driver.findElements(By.xpath(xpath));
-            if(!checkboxes.isEmpty()){
-                WebElement checkbox = checkboxes.get(0);
-                if(!checkbox.isSelected()){
-                    checkbox.click();
-                }
+            WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+            if (!checkbox.isSelected()) {
+                checkbox.click();
             }
         }
     }
 
-    // Išplėsti ypatybių sekciją paspaudus mygtuką "Žymėti ypatumus"
-    public void expandAttributes(){
-        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(By.id("showMoreFields")));
-        button.click();
+    // Išplėsti ypatybių sekciją
+    public void expandAttributes() {
+        if (this.showAttributes) {
+            WebElement button = wait.until(ExpectedConditions.elementToBeClickable(By.id("showMoreFields")));
+            button.click();
+        }
     }
 
     // Ypatybių checkbox'ų žymėjimas
-    public void selectSpecialFeatures(){
-        for (Integer feature : this.specialFeatures){
+    public void selectSpecialFeatures() {
+        for (Integer feature : this.specialFeatures) {
             String xpath = String.format("//input[@name='Special[]' and @value='%d']", feature);
-            List<WebElement> checkboxes = driver.findElements(By.xpath(xpath));
-            if(!checkboxes.isEmpty()){
-                WebElement checkbox = checkboxes.get(0);
-                if(!checkbox.isSelected()){
-                    checkbox.click();
-                }
+            WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+            if (!checkbox.isSelected()) {
+                checkbox.click();
             }
         }
     }
 
     // Checkbox "Domina keitimas"
-    public void toggleInterestedChange(){
-        WebElement checkbox = driver.findElement(By.id("cbInterestedChange"));
-        if(!checkbox.isSelected()){
+    public void toggleInterestedChange() {
+        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.id("cbInterestedChange")));
+        if (this.interestedChange != checkbox.isSelected()) {
             checkbox.click();
         }
     }
 
     // Checkbox "Varžytynės/aukcionas"
-    public void toggleAuction(){
-        WebElement checkbox = driver.findElement(By.id("cbAuction"));
-        if(!checkbox.isSelected()){
+    public void toggleAuction() {
+        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.id("cbAuction")));
+        if (this.auction != checkbox.isSelected()) {
             checkbox.click();
         }
     }
 
-    // Aprašymo įvedimas trimis kalbomis: LT, EN, RU
-    public void fillDescription(){
-        // LT
-        WebElement ltRadio = driver.findElement(By.id("langLt"));
+    // Aprašymo įvedimas trimis kalbomis
+    public void fillDescription() {
+        WebElement ltRadio = wait.until(ExpectedConditions.elementToBeClickable(By.id("langLt")));
         ltRadio.click();
-        WebElement notesLtField = driver.findElement(By.name("notes_lt"));
+        WebElement notesLtField = wait.until(ExpectedConditions.elementToBeClickable(By.name("notes_lt")));
         notesLtField.clear();
         notesLtField.sendKeys(this.notesLt);
-        // EN
-        WebElement enRadio = driver.findElement(By.id("langEn"));
+
+        WebElement enRadio = wait.until(ExpectedConditions.elementToBeClickable(By.id("langEn")));
         enRadio.click();
-        WebElement notesEnField = driver.findElement(By.name("notes_en"));
+        WebElement notesEnField = wait.until(ExpectedConditions.elementToBeClickable(By.name("notes_en")));
         notesEnField.clear();
         notesEnField.sendKeys(this.notesEn);
-        // RU
-        WebElement ruRadio = driver.findElement(By.id("langRu"));
+
+        WebElement ruRadio = wait.until(ExpectedConditions.elementToBeClickable(By.id("langRu")));
         ruRadio.click();
-        WebElement notesRuField = driver.findElement(By.name("notes_ru"));
+        WebElement notesRuField = wait.until(ExpectedConditions.elementToBeClickable(By.name("notes_ru")));
         notesRuField.clear();
         notesRuField.sendKeys(this.notesRu);
     }
 
     // Youtube nuorodos ir 3D turo lauko pildymas
-    public void fillVideoAndTour3D(){
-        WebElement videoField = driver.findElement(By.name("Video"));
+    public void fillVideoAndTour3D() {
+        WebElement videoField = wait.until(ExpectedConditions.elementToBeClickable(By.name("Video")));
         videoField.clear();
         videoField.sendKeys(this.video);
 
-        WebElement tour3dField = driver.findElement(By.name("tour_3d"));
+        WebElement tour3dField = wait.until(ExpectedConditions.elementToBeClickable(By.name("tour_3d")));
         tour3dField.clear();
         tour3dField.sendKeys(this.tour3d);
     }
 
     // Sklypo kainos lauko pildymas
-    public void fillPrice(){
-        WebElement priceField = driver.findElement(By.id("priceField"));
+    public void fillPrice() {
+        WebElement priceField = wait.until(ExpectedConditions.elementToBeClickable(By.id("priceField")));
         priceField.clear();
         priceField.sendKeys(String.valueOf(this.price));
     }
 
     // Telefono lauko pildymas
-    public void fillPhone(){
-        WebElement phoneField = driver.findElement(By.name("phone"));
+    public void fillPhone() {
+        WebElement phoneField = wait.until(ExpectedConditions.elementToBeClickable(By.name("phone")));
         phoneField.clear();
         phoneField.sendKeys(this.phone);
     }
 
     // El. pašto lauko pildymas
-    public void fillEmail(){
-        WebElement emailField = driver.findElement(By.name("email"));
+    public void fillEmail() {
+        WebElement emailField = wait.until(ExpectedConditions.elementToBeClickable(By.name("email")));
         emailField.clear();
         emailField.sendKeys(this.email);
     }
 
     // Checkbox "Išjungti kontaktavimo el. paštu"
-    public void toggleDontShowInAds(){
-        WebElement checkbox = driver.findElement(By.id("cbdont_show_in_ads"));
-        if(!checkbox.isSelected()){
+    public void toggleDontShowInAds() {
+        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.id("cbdont_show_in_ads")));
+        if (this.dontShowInAds != checkbox.isSelected()) {
             checkbox.click();
         }
     }
 
     // Checkbox "Išjungti pokalbių (chat) funkciją"
-    public void toggleDontWantChat(){
-        WebElement checkbox = driver.findElement(By.id("cbdont_want_chat"));
-        if(!checkbox.isSelected()){
+    public void toggleDontWantChat() {
+        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.id("cbdont_want_chat")));
+        if (this.dontWantChat != checkbox.isSelected()) {
             checkbox.click();
         }
     }
 
-    // Vartotojo tipo pasirinkimas – atsižvelgiant į accountType (1 = Privatus asmuo, 2 = Tarpininkas, 3 = Vystytojas/statytojas, 4 = Kitas verslo subjektas)
-    public void selectAccountType(){
-        List<WebElement> buttons = driver.findElements(By.cssSelector(".input-buttons-wrapper .input-button"));
-        for(WebElement btn : buttons){
+    // Vartotojo tipo pasirinkimas
+    public void selectAccountType() {
+        List<WebElement> buttons = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector(".input-buttons-wrapper .input-button")));
+        for (WebElement btn : buttons) {
             String dataValue = btn.getAttribute("data-value");
-            if(Integer.parseInt(dataValue) == this.accountType){
+            if (Integer.parseInt(dataValue) == this.accountType) {
                 btn.click();
                 break;
             }
@@ -352,24 +355,18 @@ public class Plot {
     }
 
     // Checkbox "Sutinku su portalo taisyklėmis"
-    public void toggleAgreeToRules(){
-        WebElement checkbox = driver.findElement(By.id("cbagree_to_rules"));
-        if(!checkbox.isSelected()){
+    public void toggleAgreeToRules() {
+        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(By.id("cbagree_to_rules")));
+        if (this.agreeToRules != checkbox.isSelected()) {
             checkbox.click();
         }
     }
 
-    // Nuotraukos įkėlimas: spustelėjimas ant įkėlimo mygtuko ir failo kelio nusiųsti į <input type="file">
-    public void uploadPhoto(String filePath){
+    // Nuotraukos įkėlimas
+    public void uploadPhoto() {
         WebElement uploadButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("uploadPhotoBtn")));
         uploadButton.click();
         WebElement fileInput = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[type='file']")));
-        fileInput.sendKeys(filePath);
-    }
-
-    // Skelbimo pateikimas – spustelimas ant "Įvesti skelbimą" mygtuko
-    public void submitListing(){
-        WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(., 'Įvesti skelbimą')]")));
-        submitButton.click();
+        fileInput.sendKeys(this.photoUrl);
     }
 }
