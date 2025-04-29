@@ -1,3 +1,5 @@
+package org.example.models;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -8,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class PlotTests {
+public class Plot {
     public WebDriver driver;
     public WebDriverWait wait;
 
@@ -84,6 +86,56 @@ public class PlotTests {
         this.dontWantChat = dontWantChat;
         this.accountType = accountType;
         this.agreeToRules = agreeToRules;
+    }
+    public void fill(){
+        fillRegion();
+        fillDistrict();
+        fillQuartal();
+        fillStreet();
+        fillHouseNumber();
+        toggleShowHouseNumberCheckbox();
+        fillRCNumber();
+        toggleRCCheckbox();
+        fillArea();
+        selectPurposes();
+        expandAttributes();
+        selectSpecialFeatures();
+        toggleInterestedChange();
+        toggleAuction();
+        fillDescription();
+        fillVideoAndTour3D();
+        fillPrice();
+        fillPhone();
+        fillEmail();
+        toggleDontShowInAds();
+        toggleDontWantChat();
+        selectAccountType();
+        toggleAgreeToRules();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     // Regiono dropdown – spustelėja lauką, įveda regiono pavadinimą ir pasirenka variantą
@@ -320,7 +372,4 @@ public class PlotTests {
         WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(., 'Įvesti skelbimą')]")));
         submitButton.click();
     }
-}
-
-public void main() {
 }
